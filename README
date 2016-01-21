@@ -1,0 +1,70 @@
+The World Meteorological Organization (WMO) Commission for Basic Systems (CBS) met in 1985 to create the GRIB (GRIdded Binary) format. The WGDM in February 1994, after major changes, approved revision 1 of the GRIB format. GRIB Edition 2 format was approved in 2003 at Geneva.
+
+
+#### GRIB1 notes
+X is known as shortName = 10u (the 10 makes for base ten is a guess)
+Y is known as shortName = 10v
+
+
+
+#### WGRIB commands
+./wgrib -s ~/.zygrib/grib/sample.grb | grep ":12hr fcst:" | ./wgrib -i -text ~/.zygrib/grib/sample.grb -o outfile
+
+./wgrib -s -d 1 ~/.zygrib/grib/sample.grb | ./wgrib -i -text ~/.zygrib/grib/sample.grb -o outfile1
+
+
+
+#### Websites
+http://forecast2phone.com/
+
+https://software.ecmwf.int/wiki/display/GRIB/What+is+GRIB-API
+
+https://github.com/erget/PythonicGRIB
+
+http://www.libpng.org/pub/png/
+
+
+#### Manuals
+http://www.wmo.int/pages/prog/www/WDM/Guides/Guide-binary-2.html
+http://weather.unisys.com/wxp/Appendices/Formats/GRIB.html
+http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base
+
+
+
+#### gribapi
+I had to move the default installed files from 
+/usr/local/lib/python2.7/site-packages/grib_api
+to
+/usr/local/lib/python2.7/dist-packages/grib_api
+and add an __init__.py to load the module properly.
+
+
+#### Python notes
+math.atan2(y, x)
+
+    Return atan(y / x), in radians. The result is between -pi and pi. The vector in the plane from the origin to point (x, y) makes this angle with the positive X axis. The point of atan2() is that the signs of both inputs are known to it, so it can compute the correct quadrant for the angle. For example, atan(1) and atan2(1, 1) are both pi/4, but atan2(-1, -1) is -3*pi/4. Usee math.degree to convert it from radians to degrees.
+
+
+#### Free GRIB providers http://www.euronav.co.uk/Weather/gribfiles.htm
+GMN GRIB CoverageGlobal Marine Networks (GMN), the leader in marine weather services, now offers 7 day wind forecasts of the world as a free public service via its GRIB Mail Robot. These forecasts are generated daily at 0015, 0615, 1215, 1815 GMT. Select areas or a custom LAT/LONG area possible to request with email.
+http://www.globalmarinenet.com/free-grib-files-provided-by-global-marine-networks/
+
+
+// http://www.globalmarinenet.com/free-grib-file-downloads/#download
+function build_url(region,data,dataset)
+{
+   if (typeof(dataset)==='undefined') dataset = 'nww3';
+   var url;
+   url = "http://gribs2.gmn-usa.com/cgi-bin/weather_fetch.pl?parameter=";
+   url = url.concat(data,"&#038;days=7");
+   url = url.replace("#038;","");
+   url = url.concat("&#038;region=",region);
+   url = url.replace("#038;","");
+   url = url.concat("&#038;dataset=",dataset);
+   url = url.replace("#038;","");
+//alert(url); 
+   window.location.href = url;
+}
+
+
+om.yr.no/verdata/grib/
