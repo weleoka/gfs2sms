@@ -1,11 +1,14 @@
+#!/usr/bin/env python
+
 import traceback
 import sys
 import math
 
 from grib_api.gribapi import *
 
-INPUT='../testgrib2.grb'
+INPUT='tg02.grb'
 VERBOSE=1 # verbose error reporting
+
 
 
 def get_wind_spd_kts(x, y):
@@ -23,6 +26,21 @@ def get_wind_dir_degrees(x, y):
 
 
 def example():
+    # pv = {}
+
+    # index_keys = ["rec","shortName","level","stepRange"]
+    # index = grib_index_new_from_file(INPUT,index_keys)
+
+    # for rec in grib_index_get(index,'rec'):
+    #     grib_index_select(index,'rec',rec)
+    #     gid = grib_new_from_index(index)
+    #     print gid
+    #     pv = grib_get_array(gid,'rec')
+    
+
+    # grib_release(gid)
+    # grib_index_release(index)
+
     f = open(INPUT)
     gid = grib_new_from_file(f)
     msg_count = grib_count_in_file (f)

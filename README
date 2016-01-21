@@ -68,3 +68,58 @@ function build_url(region,data,dataset)
 
 
 om.yr.no/verdata/grib/
+
+
+--- Keys for GFS grib
+
+
+wgrib -V (verbose):
+rec 1:0:date 2016012106 UGRD kpds5=33 kpds6=105 kpds7=10 levels=(0,10) grid=255 10 m above gnd anl:
+  UGRD=u wind [m/s]
+  timerange 10 P1 0 P2 0 TimeU 1  nx 6 ny 6 GDS grid 0 num_in_ave 0 missing 0
+  center 7 subcenter 0 process 81 Table 2 scan: WE:NS winds(N/S) 
+  latlon: lat  60.000000 to 50.000000 by -2.000000  nxny 36
+          long 10.000000 to 20.000000 by 2.000000, (6 x 6) scan 0 mode 128 bdsgrid 1
+  min/max data -3.5 4.94  num bits 13  BDS_Ref -3272  DecScale 2 BinScale 0
+rec 6:715:date 2016012106 VGRD kpds5=34 kpds6=105 kpds7=10 levels=(0,10) grid=255 10 m above gnd anl:
+  VGRD=v wind [m/s]
+  timerange 10 P1 0 P2 0 TimeU 1  nx 6 ny 6 GDS grid 0 num_in_ave 0 missing 0
+  center 7 subcenter 0 process 81 Table 2 scan: WE:NS winds(N/S) 
+  latlon: lat  60.000000 to 50.000000 by -2.000000  nxny 36
+          long 10.000000 to 20.000000 by 2.000000, (6 x 6) scan 0 mode 128 bdsgrid 1
+  min/max data -7.96 1.02  num bits 13  BDS_Ref -2353  DecScale 2 BinScale 0
+rec 7:858:date 2016012106 VGRD kpds5=34 kpds6=105 kpds7=10 levels=(0,10) grid=255 10 m above gnd 24hr fcst:
+  VGRD=v wind [m/s]
+  timerange 10 P1 0 P2 24 TimeU 1  nx 6 ny 6 GDS grid 0 num_in_ave 0 missing 0
+  center 7 subcenter 0 process 96 Table 2 scan: WE:NS winds(N/S) 
+  latlon: lat  60.000000 to 50.000000 by -2.000000  nxny 36
+          long 10.000000 to 20.000000 by 2.000000, (6 x 6) scan 0 mode 128 bdsgrid 1
+  min/max data -5.77 6.9  num bits 13  BDS_Ref -2707  DecScale 2 BinScale 0
+
+
+
+
+keys_iterator.py
+edition = 1
+centre = kwbc
+typeOfLevel = heightAboveGround
+level = 10
+dataDate = 20160121
+stepRange = 24
+shortName = 10v
+packingType = grid_simple
+gridType = regular_ll
+
+
+
+wgrib
+1:0:d=16012106:UGRD:kpds5=33:kpds6=105:kpds7=10:TR=10:P1=0:P2=0:TimeU=1:10 m above:anl:NAve=0
+2:143:d=16012106:UGRD:kpds5=33:kpds6=105:kpds7=10:TR=10:P1=0:P2=24:TimeU=1:10 m above gnd:24hr fcst:NAve=0
+3:286:d=16012106:UGRD:kpds5=33:kpds6=105:kpds7=10:TR=10:P1=0:P2=48:TimeU=1:10 m above gnd:48hr fcst:NAve=0
+4:429:d=16012106:UGRD:kpds5=33:kpds6=105:kpds7=10:TR=10:P1=0:P2=72:TimeU=1:10 m above gnd:72hr fcst:NAve=0
+5:572:d=16012106:UGRD:kpds5=33:kpds6=105:kpds7=10:TR=10:P1=0:P2=96:TimeU=1:10 m above gnd:96hr fcst:NAve=0
+6:715:d=16012106:VGRD:kpds5=34:kpds6=105:kpds7=10:TR=10:P1=0:P2=0:TimeU=1:10 m above gnd:anl:NAve=0
+7:858:d=16012106:VGRD:kpds5=34:kpds6=105:kpds7=10:TR=10:P1=0:P2=24:TimeU=1:10 m above gnd:24hr fcst:NAve=0
+8:1001:d=16012106:VGRD:kpds5=34:kpds6=105:kpds7=10:TR=10:P1=0:P2=48:TimeU=1:10 m above gnd:48hr fcst:NAve=0
+9:1144:d=16012106:VGRD:kpds5=34:kpds6=105:kpds7=10:TR=10:P1=0:P2=72:TimeU=1:10 m above gnd:72hr fcst:NAve=0
+10:1287:d=16012106:VGRD:kpds5=34:kpds6=105:kpds7=10:TR=10:P1=0:P2=96:TimeU=1:10 m above gnd:96hr fcst:NAve=0
