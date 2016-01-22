@@ -3,6 +3,9 @@ The World Meteorological Organization (WMO) Commission for Basic Systems (CBS) m
 
 
 ### gfs2sms versions
+(v0.0.1) Current development version.
+
+Version specified in README, CHANGELOG, commit tag.
 
 
 
@@ -12,6 +15,13 @@ GRIB API v1.14
 
 
 ### Overview
+gfs2sms has two parts. 
+
+Firstly gfs2sms is a web server and gateway between free grib providers and users of the gfs2sms service. The gfs2sms server will gather user requested data out of GFS GRIB files and fit it into the gfs2sms protocol for forwarding to clients. 
+
+Secondly gfs2sms is a client which can decode the gfs2sms protocol. The client is optimised for running on any device and can accept the encoded data to be cut-and-paste:ed or be forwarded from other software automatically. The client can then decode the data and display in human readable format, either text based or graphically such as in a digital image.
+
+Clients who stand to benefit from these services are those which are in ultra-low, ultra-restricted bandwidth situations. Fore example where the GSM 160 character SMS is the sole channel of communication. The gfs2sms protocol is an overlay for the GSM SMS standard to allow data transfer following extremely strict, pre-defined, formatting.
 
 
 ### Installation
@@ -112,12 +122,25 @@ http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base
 
 
 
+
+### NOTES and stuff:
+
+What is the difference between a vector and a scalar?
+
+• Vectors have both, a magnitude and direction, but scalars have magnitude only.
+
+• Vector equality occurs only when both the magnitude and the direction of two vectors of the same type are the same, but in the case of scalars, equality of magnitude is sufficient.
+
+• Scalars of the same type can be added just as real numbers, but the addition of vectors should be done using the polygon law.
+
+
 #### gribapi
 I had to move the default installed files from 
 /usr/local/lib/python2.7/site-packages/grib_api
 to
 /usr/local/lib/python2.7/dist-packages/grib_api
 and add an __init__.py to load the module properly.
+
 
 
 #### Python notes
