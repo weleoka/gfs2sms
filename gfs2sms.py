@@ -1,31 +1,22 @@
 #!/usr/bin/env python
+"""
+Module to fish data out of GFS GRIB files and fit it into the gfs2sms protocol.
+
+Please report any issues to weleoka@github.com
+"""
 
 import traceback
 import sys
-import math
 
 from grib_api.gribapi import *
+from gfs2sms_utils import wind_tools as wt
 
 INPUT='tg02.grb'
 VERBOSE=1 # verbose error reporting
 
 
-
-def get_wind_spd_kts(x, y):
-    spd_mps = math.hypot(x, y)
-    return spd_mps * 1.943844 # The constant for calculating kts from m/s.
-
-
-def get_wind_spd_mps(x, y):
-    return math.hypot(x, y)
-
-
-def get_wind_dir_degrees(x, y):
-    radians = math.atan2(y, x)
-    return math.degrees(radians)
-
-
 def example():
+    # print wt.get_wind_spd_kts(10, 12)
     # pv = {}
 
     # index_keys = ["rec","shortName","level","stepRange"]
