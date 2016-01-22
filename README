@@ -14,6 +14,7 @@ Python v2.7
 GRIB API v1.14
 
 
+
 ### Overview
 gfs2sms has two parts. 
 
@@ -22,6 +23,7 @@ Firstly gfs2sms is a web server and gateway between free grib providers and user
 Secondly gfs2sms is a client which can decode the gfs2sms protocol. The client is optimised for running on any device and can accept the encoded data to be cut-and-paste:ed or be forwarded from other software automatically. The client can then decode the data and display in human readable format, either text based or graphically such as in a digital image.
 
 Clients who stand to benefit from these services are those which are in ultra-low, ultra-restricted bandwidth situations. Fore example where the GSM 160 character SMS is the sole channel of communication. The gfs2sms protocol is an overlay for the GSM SMS standard to allow data transfer following extremely strict, pre-defined, formatting.
+
 
 
 ### Installation
@@ -92,27 +94,10 @@ Copyright (c) 2016 A.K. Weeks
 
 
 
-#### GRIB1 notes
-X is known as shortName = 10u (the 10 makes for base ten is a guess)
-Y is known as shortName = 10v
-
-
-
-#### WGRIB commands
-./wgrib -s ~/.zygrib/grib/sample.grb | grep ":12hr fcst:" | ./wgrib -i -text ~/.zygrib/grib/sample.grb -o outfile
-
-./wgrib -s -d 1 ~/.zygrib/grib/sample.grb | ./wgrib -i -text ~/.zygrib/grib/sample.grb -o outfile1
-
-
-
 #### Websites
 http://forecast2phone.com/
-
-https://software.ecmwf.int/wiki/display/GRIB/What+is+GRIB-API
-
-https://github.com/erget/PythonicGRIB
-
 http://www.libpng.org/pub/png/
+
 
 
 #### Manuals
@@ -125,16 +110,42 @@ http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base
 
 ### NOTES and stuff:
 
-What is the difference between a vector and a scalar?
+#### GRIB and GRIB software notes
+X is known as shortName = 10u (the 10 makes for base ten is a guess)
+Y is known as shortName = 10v
+https://software.ecmwf.int/wiki/display/GRIB/What+is+GRIB-API
+https://github.com/erget/PythonicGRIB
+WGRIB commands:
+./wgrib -s sample.grb | grep ":12hr fcst:" | ./wgrib -i -text sample.grb -o outfile
+./wgrib -s -d 1 sample.grb | ./wgrib -i -text sample.grb -o outfile1
 
-• Vectors have both, a magnitude and direction, but scalars have magnitude only.
-
-• Vector equality occurs only when both the magnitude and the direction of two vectors of the same type are the same, but in the case of scalars, equality of magnitude is sufficient.
-
-• Scalars of the same type can be added just as real numbers, but the addition of vectors should be done using the polygon law.
 
 
-#### gribapi
+#### SMS GSM and Android notes
+Generally an SMS is restricted to 160 (7 bit) characters or 140 (8 bit) characters.
+Unicode SMS support (70 characters in length).
+
+http://codetheory.in/android-sms/
+https://mobiforge.com/design-development/sms-messaging-android
+
+SMS Gateways and APIs:
+https://sites.google.com/a/tellustalk.com/english/api
+http://www.bulksms.com/products/sms-api.htm
+http://www.smsglobal.com/rest-api/
+https://smsgateway.me/  // Turn your android into an SMS gateway API.
+https://www.cellsynt.com/sv/sms/priser    // SE
+inleed.se/sms-api/   // SE
+
+
+#### Email SMTP IMAP
+https://yuji.wordpress.com/2011/06/22/python-imaplib-imap-example-with-gmail/
+
+OAuth, Google API and GMail:
+https://github.com/charlierguo/gmail
+https://developers.google.com/identity/protocols/OAuth2
+
+
+#### GRIB API notes
 I had to move the default installed files from 
 /usr/local/lib/python2.7/site-packages/grib_api
 to
@@ -149,9 +160,11 @@ math.atan2(y, x)
     Return atan(y / x), in radians. The result is between -pi and pi. The vector in the plane from the origin to point (x, y) makes this angle with the positive X axis. The point of atan2() is that the signs of both inputs are known to it, so it can compute the correct quadrant for the angle. For example, atan(1) and atan2(1, 1) are both pi/4, but atan2(-1, -1) is -3*pi/4. Usee math.degree to convert it from radians to degrees.
 
 
+
 #### Free GRIB providers http://www.euronav.co.uk/Weather/gribfiles.htm
 GMN GRIB CoverageGlobal Marine Networks (GMN), the leader in marine weather services, now offers 7 day wind forecasts of the world as a free public service via its GRIB Mail Robot. These forecasts are generated daily at 0015, 0615, 1215, 1815 GMT. Select areas or a custom LAT/LONG area possible to request with email.
 http://www.globalmarinenet.com/free-grib-files-provided-by-global-marine-networks/
+Norwegian Weather Service GRIBS: om.yr.no/verdata/grib/
 
 
 // http://www.globalmarinenet.com/free-grib-file-downloads/#download
@@ -174,8 +187,14 @@ function build_url(region,data,dataset)
 ```
 
 
+#### MISCELLANEOUS notes
+What is the difference between a vector and a scalar?
 
-om.yr.no/verdata/grib/
+• Vectors have both, a magnitude and direction, but scalars have magnitude only.
+
+• Vector equality occurs only when both the magnitude and the direction of two vectors of the same type are the same, but in the case of scalars, equality of magnitude is sufficient.
+
+• Scalars of the same type can be added just as real numbers, but the addition of vectors should be done using the polygon law.
 
 
 --- Keys for GFS grib
