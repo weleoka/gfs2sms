@@ -110,16 +110,6 @@ http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base
 
 ### NOTES and stuff:
 
-#### GRIB and GRIB software notes
-X is known as shortName = 10u (the 10 makes for base ten is a guess)
-Y is known as shortName = 10v
-https://software.ecmwf.int/wiki/display/GRIB/What+is+GRIB-API
-https://github.com/erget/PythonicGRIB
-WGRIB commands:
-./wgrib -s sample.grb | grep ":12hr fcst:" | ./wgrib -i -text sample.grb -o outfile
-./wgrib -s -d 1 sample.grb | ./wgrib -i -text sample.grb -o outfile1
-
-
 
 #### SMS GSM and Android notes
 Generally an SMS is restricted to 160 (7 bit) characters or 140 (8 bit) characters.
@@ -140,9 +130,19 @@ inleed.se/sms-api/   // SE
 #### Email SMTP IMAP
 https://yuji.wordpress.com/2011/06/22/python-imaplib-imap-example-with-gmail/
 
-OAuth, Google API and GMail:
+OAuth, Google API, GMail and Google App Engine:
 https://github.com/charlierguo/gmail
 https://developers.google.com/identity/protocols/OAuth2
+
+
+#### GRIB and GRIB software notes
+X is known as shortName = 10u (the 10 makes for base ten is a guess)
+Y is known as shortName = 10v
+https://software.ecmwf.int/wiki/display/GRIB/What+is+GRIB-API
+https://github.com/erget/PythonicGRIB
+WGRIB commands:
+./wgrib -s sample.grb | grep ":12hr fcst:" | ./wgrib -i -text sample.grb -o outfile
+./wgrib -s -d 1 sample.grb | ./wgrib -i -text sample.grb -o outfile1
 
 
 #### GRIB API notes
@@ -156,7 +156,6 @@ and add an __init__.py to load the module properly.
 
 #### Python notes
 math.atan2(y, x)
-
     Return atan(y / x), in radians. The result is between -pi and pi. The vector in the plane from the origin to point (x, y) makes this angle with the positive X axis. The point of atan2() is that the signs of both inputs are known to it, so it can compute the correct quadrant for the angle. For example, atan(1) and atan2(1, 1) are both pi/4, but atan2(-1, -1) is -3*pi/4. Usee math.degree to convert it from radians to degrees.
 
 
@@ -165,6 +164,7 @@ math.atan2(y, x)
 GMN GRIB CoverageGlobal Marine Networks (GMN), the leader in marine weather services, now offers 7 day wind forecasts of the world as a free public service via its GRIB Mail Robot. These forecasts are generated daily at 0015, 0615, 1215, 1815 GMT. Select areas or a custom LAT/LONG area possible to request with email.
 http://www.globalmarinenet.com/free-grib-files-provided-by-global-marine-networks/
 Norwegian Weather Service GRIBS: om.yr.no/verdata/grib/
+Mediterranean high-res GRIBs: http://openskiron.org/en
 
 
 // http://www.globalmarinenet.com/free-grib-file-downloads/#download
