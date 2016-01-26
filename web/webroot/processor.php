@@ -23,9 +23,9 @@ if(isset($_GET["LAT"]) && isset($_GET["LONG"]))
 
 $arr = [];
 $debug = "";
-$grib_processor = "../assets/wgrib";
-$grib_file = "../data/tg02.grb";
-$output_file = "../data/processed/usernameLATLONG";
+$grib_processor = "../../tools/wgrib";
+$grib_file = "../../data/tg02.grb";
+$output_file = "../../data/processed/usernameLATLONG";
 $flags = "-s -d 1"; // -s Simple, -d Data 1.
 $flags2 = "-i -text";   // -i Read from stdin (inventory), -text Output text.
 

@@ -35,6 +35,8 @@ https://github.com/erget/PythonicGRIB
 WGRIB commands:
 ./wgrib -s sample.grb | grep ":12hr fcst:" | ./wgrib -i -text sample.grb -o outfile
 ./wgrib -s -d 1 sample.grb | ./wgrib -i -text sample.grb -o outfile1
+./wgrib -s ../data/tg02.grb | grep "24hr fcst" | ./wgrib -i -text ../data/tg02.grb -o usernameIssuePoint24hr.grb
+
 
 
 #### GRIB API notes

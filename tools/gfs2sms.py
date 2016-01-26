@@ -8,7 +8,6 @@ Please report any issues to weleoka@github.com
 import traceback
 import sys
 import fileinput # https://docs.python.org/2/library/fileinput.html
-import subprocess
 
 from grib_api.gribapi import *
 from gfs2sms_utils import wind_tools as w_t
@@ -26,8 +25,7 @@ def example():
     command = grib_processor + " -s -d 1 " + grib_file + " | " 
                     + grib_processor + " -i -text " + grib_file
                     + " -o " + output_file;
-
-    subprocess.call(['./test.sh'])
+    exec(command, arr, return_var);
 
     # print w_t.get_wind_spd_kts(10, 12)
     # pv = {}
