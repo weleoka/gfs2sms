@@ -1,0 +1,20 @@
+{
+    "name": "ardeidae_home",
+    "type": "template",
+    "description": "Webtemplate to create websites",
+    "keywords": ["boilerplate", "framework", "micro", "education"],
+    "homepage": "none",
+    "license": "Creative Commons",
+    "authors": [
+        {
+            "name": "Kai Weeks",
+            "email": "me@aaaa.se",
+            "homepage": "none",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "michelf/php-markdown": "1.4.1"
+    }
+}

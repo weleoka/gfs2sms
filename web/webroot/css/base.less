@@ -1,0 +1,895 @@
+/* ====================================================================
+   Colours.
+   ==================================================================== */
+@black:#000;
+@blue:#049cdb;
+@green:#46a546;
+@red:#9d261d;
+@yellow:#ffc40d;
+@orange:#f89406;
+@grey:#555;
+@greyLight:#999;
+@greyLighter:#eee;
+
+.black{color:@black;}
+.blue{color:@blue;}
+.green{color:@green;}
+.red{color:@red;}
+.yellow{color:@yellow;}
+.orange{color:@orange;}
+
+
+/* ================================================================
+   CSS3 Mixins
+   ================================================================ */
+
+.border-radius(@radius:5px) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+          border-radius: @radius;
+}
+.box-shadow(@shadow:5px 5px 5px 5px @grey) {
+  -webkit-box-shadow: @shadow;
+     -moz-box-shadow: @shadow;
+          box-shadow: @shadow;
+}
+.transition(@property: all, @time: 1s, @timing: ease-in-out) {
+  -webkit-transition: @property @time @timing;
+     -moz-transition: @property @time @timing;
+      -ms-transition: @property @time @timing;
+       -o-transition: @property @time @timing;
+          transition: @property @time @timing;
+}
+.transition-property(@property: all) {
+  -webkit-transition-property: @property;
+     -moz-transition-property: @property;
+      -ms-transition-property: @property;
+       -o-transition-property: @property;
+          transition-property: @property;
+}
+.transition-duration(@time: 1s) {
+  -webkit-transition-duration: @time;
+     -moz-transition-duration: @time;
+      -ms-transition-duration: @time;
+       -o-transition-duration: @time;
+          transition-duration: @time;
+}
+.transition-timing-function(@timing: ease-in-out) {
+  -webkit-transition-timing-function: @timing;
+     -moz-transition-timing-function: @timing;
+      -ms-transition-timing-function: @timing;
+       -o-transition-timing-function: @timing;
+          transition-timing-function: @timing;
+}
+.rotate(@degrees) {
+  -webkit-transform: rotate(@degrees);
+     -moz-transform: rotate(@degrees);
+      -ms-transform: rotate(@degrees);
+       -o-transform: rotate(@degrees);
+          transform: rotate(@degrees);
+}
+.scale(@ratio) {
+  -webkit-transform: scale(@ratio);
+     -moz-transform: scale(@ratio);
+      -ms-transform: scale(@ratio);
+       -o-transform: scale(@ratio);
+          transform: scale(@ratio);
+}
+.skew(@x, @y) {
+  -webkit-transform: skew(@x, @y);
+     -moz-transform: skew(@x, @y);
+      -ms-transform: skew(@x, @y);
+       -o-transform: skew(@x, @y);
+          transform: skew(@x, @y);
+}
+.translate(@x, @y) {
+  -webkit-transform: translate(@x, @y);
+     -moz-transform: translate(@x, @y);
+      -ms-transform: translate(@x, @y);
+       -o-transform: translate(@x, @y);
+          transform: translate(@x, @y);
+}
+.translate3d(@x, @y, @z) {
+  -webkit-transform: translate(@x, @y, @z);
+     -moz-transform: translate(@x, @y, @z);
+      -ms-transform: translate(@x, @y, @z);
+       -o-transform: translate(@x, @y, @z);
+          transform: translate(@x, @y, @z);
+}
+.transform(@functions) {
+  -webkit-transform: @functions;
+     -moz-transform: @functions;
+      -ms-transform: @functions;
+       -o-transform: @functions;
+          transform: @functions;
+}
+
+
+/* This is w3c standard for specifying viewport, but more usual is support for meta tag version */
+@viewport {
+  width: device-width;
+}
+
+
+
+/* ====================================================================
+   Base styles: opinionated defaults
+   ==================================================================== */
+
+html {
+    color: #222;
+    background: gray;
+    background-image: none;
+    opacity: 1;
+    padding: 10px;
+    overflow-y: scroll;   /* keep the scrollbar available always. */
+}
+
+/* BOX SIZING... i.e. the old padding increases element width issue. */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+}
+
+
+/*
+ * Remove text-shadow in selection highlight: h5bp.com/i
+ * These selection rule sets have to be separate.
+ * Customize the background color to match your design.
+ */
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ * Remove the gap between images, videos, audio and canvas and the bottom of
+ * their containers: h5bp.com/i/440
+ */
+audio,
+canvas,
+img,
+svg,
+video {
+    vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+textarea {
+    resize: vertical;
+}
+
+
+/* ================================================================
+   Typography
+   ================================================================ */
+
+@font-family-helvetica: ubuntu, Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-monospace: monospace;
+@mNum: 16px; /* 16px - 100%/1.375 */
+
+/* Custom font example code, should be inside media query to give mobile no custom fonts. */
+/* The src urls are as follows */
+    /* IE9 Compatability Mode */
+    /* IE6-IE8 */
+    /* Safari , Android */
+    /* iOS */
+    /* SVG font */
+/*@media all and (min-width: 37.5em) {
+  @font-face {
+    font-family: 'FontName';
+    src: url('fontname.eot'),
+      url('fontname.eot?#iefix') format('embedded-opentype'),
+      url('fontname.woff') format('woff'),
+      url('fontname.ttf') format('truetype'),
+      url('fontname.svg#fontname') format ('svg');
+
+    font-weight: normal;
+    font-style: normal;
+  }
+}*/
+
+
+body {
+  font-family: @font-family-helvetica;
+  font-size: @mNum;
+  font-size: 100%;  /* IE bugfix.... not included in normalizr in 03-03-2015. */
+}
+
+h1 {
+}
+
+h4 {
+color: #F47D31;
+background-color: #fff;
+-webkit-box-shadow: 2px 2px 20px #888;
+.rotate(-45deg);
+-moz-box-shadow: 2px 2px 20px #888;
+position: absolute;
+padding: 0px 150px;
+top: 50px;
+left: -120px;
+text-align: center;
+}
+
+p {
+  text-indent: 0em;
+  line-height: 1.5em;
+}
+
+a {
+   outline: 0;
+   text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.italic {
+  font-style: italic;
+}
+
+
+/* ================================================================
+   Images.
+   ================================================================ */
+
+#sitelogo {
+  padding-top: 0em;
+  padding-left: 1em;
+  padding-bottom: 1em;
+  width: 110px;
+}
+
+.decoration {
+  display: block;
+  clear: both;
+  list-style: none;
+}
+
+#imgWebsocket {
+  float: right;
+  clear: both;
+  margin: 1em;
+  padding-top: 2.5em;
+  padding-bottom: 4em;
+}
+
+#imgNode {
+  float: right;
+  clear: both;
+  margin: 1em;
+  padding-top: 2.5em;
+  padding-bottom: 4em;
+}
+#imgGitLogo {
+  float: right;
+  clear: both;
+  margin: 1em;
+  padding-top: 2.5em;
+  padding-bottom: 4em;
+}
+
+/* Retina and high DPi screens
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 2dppx) { /* Dots Per Pixel */
+/*    header[role="banner"] .inner {
+      background: url('../img/highres_background.jpg') bottom right no-repeat;
+    }
+*/
+
+/* ================================================================
+   Video.
+   ================================================================ */
+.vid-wrapper {
+  width: 100%;
+  position: relative;
+  padding-bottom: 56.25%; /* 9 / 16 apect ratio */
+  height: 0;
+}
+.vid-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/* ================================================================
+   Author's custom styles
+   ================================================================ */
+body {
+  color: #333;
+  background: #FFFFFF;
+  .border-radius(3px);
+  box-shadow: -6px -6px 8px -4px @greyLight,
+           6px -6px 8px -4px @greyLight,
+           6px 6px 8px -4px @greyLight,
+           -6px 6px 8px -4px @greyLight;
+  width: 95%;
+  max-width: 58 * @mNum; /* = BODY WIDTH MAX: 768px; */
+  margin: auto;
+  margin-bottom: 5em;
+  background-image: url('../img/bgrnds/bgtexture03.png');
+}
+
+
+/** --------------------------------------------------------------
+ * Layout of the main page elements
+ */
+#wrapper {
+  margin: 0 auto;
+  width: 91.1458333333 %; /* 700 / 768 */
+  padding: @mNum;
+}
+
+
+/** --------------------------------------------------------------
+ * Layout for headers.
+ */
+#headerNvp {
+  display: none;
+  width: 100%;
+  background-color: #D8D2D2;
+}
+#mobileNavButton {
+  color: #333;
+  height: 2.5 * @mNum;
+  width:  2.5 * @mNum;
+  margin: 0.5 * @mNum;
+  margin-right: 2 * @mNum;
+  float: right;
+}
+.sitesloganNvp {
+  text-indent: @mNum;
+  text-decoration: none;
+  font-size: 1.25em;
+  font-weight: bold;
+  margin: .5 * @mNum;
+  display: block;
+  float: left;
+}
+
+
+
+#header {
+  position: relative;
+}
+.sitetitle {
+  position: absolute;
+  top: @mNum;
+  left: 8.125 * @mNum;  /* 130 / 16 */
+  font-size: 40px;
+}
+.siteslogan {
+  position: absolute;
+  top: 4.1 * @mNum;  /* 72 / 16 */
+  left: 6.875 * @mNum;  /* 110 / 16 */
+  font-style: italic;
+  color: #666;
+}
+
+#versionNum {
+  position:absolute;
+  right:0;
+  top: @mNum / 2;
+  float: right;
+  margin-right: 1em;
+  text-align: right;
+}
+
+
+/* ================================================================
+   Navigation. First NVP(mobile), then WVP (Narrow/Wide View Port)
+   ================================================================ */
+
+
+/**
+ * This is for a JS disabled functionality with seperate page for navlinks.
+ */
+.mobileNavLink {
+  display: block;
+  clear: both;
+  border-top: 4px solid transparent;
+  color: #333;
+  width: 100%;
+  padding: 1em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mobileNavLink:hover {
+  color: #666;
+  border-color: #666;
+}
+
+/**
+ * NVP Navbar. Based on http://dbwebb.se/coachen/en-navbar-med-drop-down-meny-i-ren-html-och-css
+ * Changed to only style li-items instead of a.
+ */
+#navbarNvpWrapper {
+  display: none;
+  margin-bottom: @mNum;
+  border-bottom: 1px solid @greyLight;
+  clear: both;
+}
+
+.navbarNvp {
+  display: none;
+}
+
+.navbarNvp ul {
+  list-style: none;
+  text-align: left;
+  background: #D8D2D2;
+  /* background-image: url('../img/bgrnds/bgtexture02.png'); */
+  .border-radius(3px);
+}
+
+.navbarNvp li {
+  text-align: left;
+  border-top: 2px solid @grey;
+  color: #333;
+}
+
+.navbarNvp a {
+  display: block;
+  width: 100%;
+  padding: 1em;
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbarNvp li:hover {
+  color: #666;
+  border-color: #666;
+}
+
+.navbarNvp li.selected-parent,
+.navbarNvp li.selected {
+  color: #22f;
+  border-color: #22f;
+}
+
+.navbarNvp ul ul {
+  background-color: #fff;
+}
+
+.navbarNvp li li {
+}
+
+.navbarNvp li:hover ul {
+}
+
+.navbarNvp li li:hover {
+  color: #666;
+  border-color: #666;
+}
+
+.navbarNvp li li.selected {
+  color: #22f;
+  border-color: #22f;
+}
+
+
+/**
+ * WVP Navbar. Based on http://dbwebb.se/coachen/en-navbar-med-drop-down-meny-i-ren-html-och-css
+ * Changed to only style li-items instead of a.
+ */
+#navbar {
+  margin-bottom: @mNum;
+}
+
+.navbar {}
+
+.navbar ul {
+  list-style: none;
+  text-align: center;
+  background: #D8D2D2;
+  /* background-image: url('../img/bgrnds/bgtexture02.png'); */
+  .border-radius(3px);
+}
+
+.navbar li {
+  display: inline-block;
+  border-top: 4px solid transparent;
+  color: #333;
+  position: relative;
+}
+
+.navbar a {
+  display: block;
+  width: 100%;
+  padding: 1em;
+  text-decoration: none;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.navbar li:hover {
+  color: #666;
+  border-color: #666;
+}
+
+.navbar li.selected-parent,
+.navbar li.selected {
+  color: #22f;
+  border-color: #22f;
+}
+
+.navbar ul ul {
+  background-color: #fff;
+  padding: 8px;
+  position: absolute;
+  left: -9999px;
+  z-index: 2;
+}
+
+.navbar li li {
+  border-top: none;
+  border-left: 4px solid transparent;
+}
+
+.navbar li:hover ul {
+  left: 0;
+}
+
+.navbar li li:hover {
+  color: #666;
+  border-color: #666;
+}
+
+.navbar li li.selected {
+  color: #22f;
+  border-color: #22f;
+}
+
+
+
+/** --------------------------------------------------------------
+ * Layout for main
+ */
+#main {
+  padding: 1em;
+  min-height: 20em;
+}
+
+
+/** --------------------------------------------------------------
+ * Footer.
+ */
+@color:@greyLight;
+#footer{
+  font-size:smaller;
+  color:@color;
+  margin-top:@mNum;
+  padding-top:0.5em;
+  a{
+    color:@color
+    ;text-decoration:none;
+    &:hover{
+      color:darken(@color,40%);
+      text-decoration:underline;
+    }
+  }
+}
+
+
+
+/** --------------------------------------------------------------
+ * Boxes.
+ */
+.articleSegment {
+  clear: both;
+  text-align: justify;
+  padding-bottom: 2 * @mNum;
+  /* background: url('../img/websocket02.png') bottom right no-repeat; */
+}
+/* This is not working */
+.articleSegment p {
+  -webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
+  -o-column-break-inside: avoid;
+  -ms-column-break-inside: avoid;
+  column-break-inside: avoid;
+  page-break-inside: avoid; /* Firefox */
+  break-inside: avoid; /* IE 10+ */
+}
+
+
+/* ================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary (hopefully 'mobile first') styles.
+   Modify as content requires.
+   all, braille, embossed, handheld, print, projection, screen, speech, tty, tv
+   ================================================================ */
+@media all and (min-width: 85em) {  /* 1360px */
+  #main {
+    column-count: 2; /* W3C */
+    -webkit-column-count: 2; /* Safari & Chrome */
+    -moz-column-count: 2; /* Firefox */
+    -ms-column-count: 2; /* Internet Explorer */
+    -o-column-count: 2; /* Opera */
+
+    column-gap: @mNum;
+    -webkit-column-gap: @mNum;
+    -moz-column-gap: @mNum;
+    -ms-column-gap: @mNum;
+    -0-column-gap: @mNum;
+
+    column-rule: 1px dashed #D8D2D2;
+    -webkit-column-rule: 1px dashed #D8D2D2;
+    -moz-column-rule: 1px dashed #D8D2D2;
+    ms-column-rule: 1px dashed #D8D2D2;
+    -o-column-rule: 1px dashed #D8D2D2;
+  }
+}
+
+@media all and (max-width: 75em) { /* 1200px */
+  h4 {
+    display: none;
+  }
+}
+
+/* Set the background image only for larger devices */
+@media all and (min-width: 48em) { /* 1200px */
+  html {
+    background-image: url('../img/bgrnds/bgtexture02.png');
+  }
+}
+
+
+/**
+ * Tablet mode
+ */
+@media all and (max-width: 48em) { /* 768px */
+  html, body, #wrapper, #main, #navbar {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  * {
+    margin: 0;
+    border-radius: 0px;
+    -webkit-box-shadow: 0px;
+    -moz-box-shadow: 0px;
+    box-shadow: 0px;
+  }
+  #navbar {
+    margin-bottom: @mNum;
+  }
+  #mobileNavButton {
+    display: none;
+  }
+  #headerNvp {
+    display: block;
+  }
+  #header {
+    display: none;
+  }
+
+  .sitesloganNvp {
+    display: block;
+  }
+
+  #main {
+    padding-left: @mNum / 2;
+    padding-right: @mNum / 2;
+  }
+}
+
+
+@media all and (max-width: 44em) { /* 704px */
+  #navbar {
+    clear: both;
+  }
+}
+
+/**
+ * NVP mode, dropdown navbar etc.
+ */
+@media all and (max-width: 36em) { /* 576px */
+  /* Images with class "decoration" are lazyloaded, this removes them if user has zoomed to NVP.
+      Note that if the user zooms out from a NVP to WVP lazy load does not trigger */
+  .decoration {
+    display: none;
+  }
+
+  #headerNvp {
+    display: block;
+  }
+  #mobileNavButton {
+    display: inline;
+  }
+  #navbarNvpWrapper {
+    display: block;
+  }
+
+  #navbar {
+    display: none;
+  }
+
+  .mobilePageTitle {
+    display: none;
+  }
+}
+
+
+
+/* ================================================================
+   Helper classes
+   ================================================================ */
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+/*
+ * Hide only visually, but have it available for screenreaders: h5bp.com/v
+ */
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+/*
+ * Hide visually and from screenreaders, but maintain layout
+ */
+.invisible {
+    visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+
+
+
+
+/* ================================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ================================================================ */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    body {
+      background: white;
+      font-size: 12pt;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+        color: red;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    a {
+        word-wrap: break-word;  /* break long links */
+    }
+
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+        max-width: 100% !important;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}

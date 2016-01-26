@@ -7,16 +7,19 @@ Please report any issues to weleoka@github.com
 
 import traceback
 import sys
+import fileinput # https://docs.python.org/2/library/fileinput.html
 
 from grib_api.gribapi import *
-from gfs2sms_utils import wind_tools as wt
+from gfs2sms_utils import wind_tools as w_t
 
-INPUT='tg02.grb'
+INPUT='web/data/tg02.grb'
 VERBOSE=1 # verbose error reporting
 
+for line in fileinput.input(): # Read from commandline file param or stdin.
+    INPUT2 = line
 
 def example():
-    # print wt.get_wind_spd_kts(10, 12)
+    # print w_t.get_wind_spd_kts(10, 12)
     # pv = {}
 
     # index_keys = ["rec","shortName","level","stepRange"]
@@ -42,6 +45,7 @@ def example():
         print "%d %.10e" % (i+1,values[i])
 
     print '%d values found in %s' % (len(values),INPUT)
+    print '%d values found in 2 %s' % (len(INPUT2))
 
     for key in ('max','min','average'):
         print '%s=%.10e' % (key,grib_get(gid,key))
