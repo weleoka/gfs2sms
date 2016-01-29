@@ -31,17 +31,13 @@ def example():
 
     # print w_t.get_wind_spd_kts(10, 12)
     # pv = {}
-
     # index_keys = ["rec","shortName","level","stepRange"]
     # index = grib_index_new_from_file(INPUT,index_keys)
-
     # for rec in grib_index_get(index,'rec'):
     #     grib_index_select(index,'rec',rec)
     #     gid = grib_new_from_index(index)
     #     print gid
     #     pv = grib_get_array(gid,'rec')
-    
-
     # grib_release(gid)
     # grib_index_release(index)
 

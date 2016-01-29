@@ -1,7 +1,9 @@
 
 
 ### NOTES and stuff:
-
+Decompress: 
+bzip2 -dk filename.bz2
+tar xjvf filename.tar.bz2 (.tar used if multiple files)
 
 #### SMS GSM and Android notes
 Generally an SMS is restricted to 160 (7 bit) characters or 140 (8 bit) characters.
@@ -35,16 +37,16 @@ https://github.com/erget/PythonicGRIB
 WGRIB commands:
 ./wgrib -s sample.grb | grep ":12hr fcst:" | ./wgrib -i -text sample.grb -o outfile
 ./wgrib -s -d 1 sample.grb | ./wgrib -i -text sample.grb -o outfile1
-./wgrib -s ../data/tg02.grb | grep "24hr fcst" | ./wgrib -i -text ../data/tg02.grb -o usernameIssuePoint24hr.grb
+wgrib -s tg03.grb | grep "24hr fcst" | wgrib -i -grib tg03.grb -o aaa.grb
 
 
 
 #### GRIB API notes
-I had to move the default installed files from 
+I had to move the default installed files .py from 
 /usr/local/lib/python2.7/site-packages/grib_api
 to
-/usr/local/lib/python2.7/dist-packages/grib_api
-and add an __init__.py to load the module properly.
+/usr/local/lib/python2.7/dist-packages/
+to load the module properly.
 
 
 
@@ -54,6 +56,9 @@ math.atan2(y, x)
 
   * Need CGI best practices and security know how.
 
+To run for example wgrib from python.
+https://docs.python.org/2/library/subprocess.html
+https://jimmyg.org/blog/2009/working-with-python-subprocess.html
 
 
 #### Free GRIB providers http://www.euronav.co.uk/Weather/gribfiles.htm
