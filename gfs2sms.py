@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """
-Module to fish data out of GFS GRIB files and fit it into the gfs2sms protocol.
+Module to fish data out of GFS GRIB2 files and fit it into the gfs2sms protocol.
 
-Please report any issues to weleoka@github.com
+Please report any issues to weleoka at github.
 """
 
 import traceback
@@ -10,26 +10,24 @@ import sys
 import fileinput # https://docs.python.org/2/library/fileinput.html
 import subprocess
 
-from grib_api.gribapi import *
-from gfs2sms_utils import wind_tools as w_t
+import gribapi
+from tools.gfs2sms_utils import wind_tools as w_t
 
-INPUT='web/data/tg02.grb'
 VERBOSE=1 # verbose error reporting
+INPUT='../data/tg02.grb'
 
-for line in fileinput.input(): # Read from commandline file param or stdin.
-    INPUT2 = line
+# Read from commandline file param or stdin.
+# for line in fileinput.input(): 
+#    INPUT = line
 
 def example():
-    grib_processor = "wgrib";
-    grib_file = "../data/tg02.grb";
+    grib_processor = "vendor/wgrib2";
     output_file = "../data/processed/usernameLATLONG";
-    command = grib_processor + " -s -d 1 " + grib_file + " | " 
-                    + grib_processor + " -i -text " + grib_file
-                    + " -o " + output_file;
+    command = grib_processor + " -s -d 1 " + grib_file + " | " + grib_processor + " -i -text " + grib_file + " -o " + output_file;
 
-    subprocess.call(['./test.sh'])
+    # subprocess.call(['./test.sh'])
 
-    # print w_t.get_wind_spd_kts(10, 12)
+    print w_t.get_wind_spd_kts(10, 12)
     # pv = {}
     # index_keys = ["rec","shortName","level","stepRange"]
     # index = grib_index_new_from_file(INPUT,index_keys)
@@ -51,7 +49,6 @@ def example():
         print "%d %.10e" % (i+1,values[i])
 
     print '%d values found in %s' % (len(values),INPUT)
-    print '%d values found in 2 %s' % (len(INPUT2))
 
     for key in ('max','min','average'):
         print '%s=%.10e' % (key,grib_get(gid,key))
