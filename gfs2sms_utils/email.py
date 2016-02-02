@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import imaplib
 import socket
+import logging
 
 #http://www.programcreek.com/python/example/2875/imaplib.IMAP4_SSL
 
@@ -19,43 +20,78 @@ import socket
 # http://stackoverflow.com/questions/18103278/how-to-check-whether-imap-idle-works
 #https://yuji.wordpress.com/2011/06/22/python-imaplib-imap-example-with-gmail/
 
+
+
+
+
 class Email_in:
 
-    def __init__(self, args):
-        self.server = args['server']
-        self.port = args['port']
-        self.timeout = args['timeout']
-        self.email = args['email']
-        self.password = args['password']
+
+# Constructor
+    def __init__ (self, conf):
+        name = '.'.join([__name__, self.__class__.__name__])
+        self.logger = logging.getLogger(name)
+                
+        self.args = conf.email_in
+
+        self.server = self.args['server']
+        self.port = self.args['port']
+        self.timeout = self.args['timeout']  # This attribute may be superflous.
+        self.email = self.args['email']
+        self.password = self.args['password']
 
         socket.setdefaulttimeout(self.timeout)
 
 
-        if args['ssl']:
-            print("Connecting with SSL to %s ..." % (self.server))
-            self.imap = imaplib.IMAP4_SSL
-        else:
-            print ("Connecting unsecurely to %s ..." % (self.server))
-            self.imap = imaplib.IMAP4
+# Method which runs through IMAP connection and authentification process
+    def connectIMAP (self):
 
-        imap = self.imap(self.server, self.port)
+        if self.args['ssl']:
+            self.logger.info ("Connecting with SSL to %s ..." % (self.server))
+            self.imapType = imaplib.IMAP4_SSL
+
+        else:
+            self.logger.info ("Connecting unsecurely to %s ..." % (self.server))
+            self.imapType = imaplib.IMAP4
+
+        self.imap = self.imapType(self.server, self.port)
 
         try:
-            imap.login(self.email, self.password)
-            self.state = imap.select()
-        except imaplib.IMAP4.error:
-            raise Exception("Incorrect username/password for %s" % self.email)
+            self.imap.login(self.email, self.password)
+            self.state = self.imap.select()
+
+        except imaplib.IMAP4.error, Argument:
+            self.logger.exception("imaplib.IMAP4: %s " % (Argument))
+            # raise Exception("imaplib.IMAP4 error %s")
+            
+            return False
+
         except socket.error as serr:
+
             if serr.errno == errno.ECONNREFUSED:
-                raise Exception("Connection refused. Check server configuration.")
-            if serr.errno == errno.ECONNRESET:                
-                raise Exception("Incorrect username/password for %s" % self.email)
-            # Not the error we are looking for, re-raise
+                self.logger.exception("Incorrect username/password for %s" % self.email)
+                # raise Exception("Incorrect username/password for %s" % self.email)
+                return False
+
+            if serr.errno == errno.ECONNRESET:
+                self.logger.exception("Connection reset by server")
+                # raise Exception("Connection reset by server")
+                return False
+
+            # Not the error we are looking for, re-raise.
+            self.logger.exception("Unhandled error: ")
             raise serr
 
-        imap.logout()
+        else:
 
-        print ("Created IMAP Reader for %s" % self.email)
+            return True
+
+# Method to close the IMAP connection.
+    def closeIMAP (self):
+        self.imap.logout()
+        self.logger.info ("Closed connection to %s ..." % (self.server))
+
+
 
    
 

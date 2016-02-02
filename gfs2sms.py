@@ -9,7 +9,7 @@ import traceback
 import sys
 import fileinput # https://docs.python.org/2/library/fileinput.html
 import subprocess
-import logging
+import logging as logger
 
 import gribapi
 import imaplib
@@ -17,18 +17,27 @@ import gfs2sms_config as conf
 from gfs2sms_utils import wind_tools as w_t
 from gfs2sms_utils.email import Email_in
 
-logging.basicConfig(level = logging.DEBUG)
-logging.basicConfig(filename=conf.general['logfile'], format = conf.general['logformat'], datefmt = conf.general['logdateformat'])
-logging.debug('This message should go to the log file')
-logging.info('So should this')
-logging.warning('And this, too')
-
-VERBOSE=1 # verbose error reporting
-INPUT='../data/tg02.grb'
-
 # Read from commandline file param or stdin.
 # for line in fileinput.input(): 
 #    INPUT = line
+
+
+#Set the logger according to config file.
+logargs = conf.log
+logLevel = getattr(logger, logargs['level'].upper(), None)
+if not isinstance(logLevel, int):
+    raise ValueError('Invalid log level: %s' % loglevel)
+logger.basicConfig(
+level = logLevel,
+filename = logargs['file'], 
+format = logargs['format'],
+datefmt = logargs['dateformat']
+)
+
+# More configuration.
+
+INPUT='../data/tg02.grb'# This will come dynamically from classes in email module
+
 
 def example():
     grib_processor = "vendor/wgrib2";
@@ -80,7 +89,17 @@ def main():
 
 if __name__ == "__main__":
 
-    Email_in(conf.email_in)
+    email_in = Email_in(conf)
+
+    res = email_in.connectIMAP()
+
+    if res:
+        logger.info ("Established IMAP connection to %s" % email_in.server)
+        email_in.closeIMAP()
+        logger.info ("Closed IMAP connection to %s" % email_in.server)
+
+    else:
+        logger.info ("Failed to establish IMAP connection to %s" % email_in.server)
 
     sys.exit()
     #sys.exit(main())
