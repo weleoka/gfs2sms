@@ -1,22 +1,19 @@
 To do:
 
-/get_gfs/get_data.sh script check out.
+Fix logging levels numerically from config file.
+- Also read what goes console what goes file and how to change it.
 
-Look at zyGribs formum membership and download options.
+Read in module email.py what to do for googles API.
 
 Extract data points u & v values from saildocs grib.
 - using wgrib
 
-mailgun send and receive mail API and routes.
 
-Look at delorme API for messaging by SMS.
+Look at explorerSE API for auto-messaging with SMS.
 
 
 
 ### NOTES and stuff:
-Decompress: 
-bzip2 -dk filename.bz2
-tar xjvf filename.tar.bz2 (.tar used if multiple files)
 
 #### SMS GSM and Android notes
 Generally an SMS is restricted to 160 (7 bit) characters or 140 (8 bit) characters.
@@ -34,9 +31,12 @@ https://www.cellsynt.com/sv/sms/priser    // SE
 inleed.se/sms-api/   // SE
 
 
-#### Email SMTP IMAP
-https://yuji.wordpress.com/2011/06/22/python-imaplib-imap-example-with-gmail/
+#### General web API notes
+Use runscope to test the routing API output of email provider.
+https://www.runscope.com/
 
+
+#### Email SMTP IMAP
 OAuth, Google API, GMail and Google App Engine:
 https://github.com/charlierguo/gmail
 https://developers.google.com/identity/protocols/OAuth2

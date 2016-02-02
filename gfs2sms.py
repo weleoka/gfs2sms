@@ -9,9 +9,19 @@ import traceback
 import sys
 import fileinput # https://docs.python.org/2/library/fileinput.html
 import subprocess
+import logging
 
 import gribapi
-from tools.gfs2sms_utils import wind_tools as w_t
+import imaplib
+import gfs2sms_config as conf
+from gfs2sms_utils import wind_tools as w_t
+from gfs2sms_utils.email import Email_in
+
+logging.basicConfig(level = logging.DEBUG)
+logging.basicConfig(filename=conf.general['logfile'], format = conf.general['logformat'], datefmt = conf.general['logdateformat'])
+logging.debug('This message should go to the log file')
+logging.info('So should this')
+logging.warning('And this, too')
 
 VERBOSE=1 # verbose error reporting
 INPUT='../data/tg02.grb'
@@ -69,4 +79,8 @@ def main():
         return 1
 
 if __name__ == "__main__":
-    sys.exit(main())
+
+    Email_in(conf.email_in)
+
+    sys.exit()
+    #sys.exit(main())
