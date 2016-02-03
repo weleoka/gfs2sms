@@ -7,6 +7,8 @@
 #	- contributors: various people who have contributed to development.
 #	- author_email: developer email_in
 #	- bug_reports: bugg repport submissions.
+#	- logging_level: basic/advanced. This effects the logging module and sets handlers, filters and loggers.
+#		Recommended level is basic for the time being.
 #
 # email_in settings define server and account details as well as connection properties.
 #	- server: the URL of the IMAP server.
@@ -28,7 +30,8 @@ basic = {
 'author': 'weleoka',
 'contributors': '',
 'author_email': 'none@none.now',
-'bug_reports': ''
+'bug_reports': 'none@none.now',
+'logging_level': 'basic' # Set to basic (or advanced - not operational)
 }
 
 email_in = {
@@ -48,14 +51,13 @@ statistics = {
 }
 
 basicLog = {
-'version': 1,
 'level': 'debug',
 'file': '/dev/stdout',	#set to /dev/stdout to print to cosole or pipe.
 'format': '%(asctime)s <%(name)s> %(levelname)s %(message)s',
 'dateformat': '%m/%d/%Y %I:%M:%S %p'
 }
 
-dictLog = {
+advLog = {
     'version': 1,
     'disable_existing_loggers': True,
     'formatters': {

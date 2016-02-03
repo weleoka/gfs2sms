@@ -22,14 +22,13 @@ import logging
 
 
 
-
-
 class Email_in:
 
 
 # Constructor
     def __init__ (self, conf):
         name = '.'.join([__name__, self.__class__.__name__])
+        # Make a logger for this class.
         self.logger = logging.getLogger(name)
                 
         self.args = conf.email_in
@@ -54,11 +53,17 @@ class Email_in:
             self.logger.info ("Connecting unsecurely to %s ..." % (self.server))
             self.imapType = imaplib.IMAP4
 
+        # Call imaplib.IMAP4 or IMAP4_SSL methods.
         self.imap = self.imapType(self.server, self.port)
 
         try:
-            self.imap.login(self.email, self.password)
+            typ, accountDetails = self.imap.login(self.email, self.password)
             self.state = self.imap.select()
+            print(typ)
+            print(accountDetails)
+            if typ != 'OK':
+                print('Not able to sign in!')
+                raise
 
         except imaplib.IMAP4.error, Argument:
             self.logger.exception("imaplib.IMAP4: %s " % (Argument))
@@ -83,8 +88,9 @@ class Email_in:
             raise serr
 
         else:
-
+            # IF no exceptions were thrown alls probably O.K. return True.
             return True
+
 
 # Method to close the IMAP connection.
     def closeIMAP (self):
@@ -92,48 +98,13 @@ class Email_in:
         self.logger.info ("Closed connection to %s ..." % (self.server))
 
 
+# Method to download mail with attatchments
+    def GetMailWithAttachments(resumeFile):
 
-   
-
-# print ("Connecting to %s" %(conf.username))
-# mail = imaplib.IMAP4_SSL('imap.gmail.com', 993)
-# mail.login(conf.username, conf.pswd)
-# mail.list()
-
-# # Out: list of "folders" aka labels in gmail.
-# mail.select("inbox") # connect to inbox.
-
-# # result, data = mail.search(None, "ALL")
-# result, data = mail.uid('search', None, "ALL") # search and return uids instead
- 
-# ids = data[0] # data is a list.
-# id_list = ids.split() # ids is a space separated string
-# #latest_email_id = id_list[-1] # get the latest
-# latest_email_uid = data[0].split()[-1]
- 
-# #result, data = mail.fetch(latest_email_id, "(RFC822)") # fetch the email body (RFC822) for the given ID
-# result, data = mail.uid('fetch', latest_email_uid, '(RFC822)')
-
-# raw_email = data[0][1] # here's the body, which is raw text of the whole email
-# # including headers and alternate payloads
-
-# print ("EMAIL: %s", raw_email)
-
-
-
-    def GetMailWithAttachments(userName, password, resumeFile):
-        imapSession = imaplib.IMAP4_SSL('imap.gmail.com')
-        typ, accountDetails = imapSession.login(userName, password)
-
-        print(typ)
-        print(accountDetails)
-        if typ != 'OK':
-            print('Not able to sign in!')
-            raise
-
-        imapSession.select('[Gmail]/All Mail')
-        typ, data = imapSession.search(None, '(X-GM-RAW "has:attachment")')
-        # typ, data = imapSession.search(None, 'ALL')
+        self.imap = self.imap
+        self.imap.select('[Gmail]/All Mail')
+        typ, data = self.imap.search(None, '(X-GM-RAW "has:attachment")')
+        # typ, data = self.imap.search(None, 'ALL')
         if typ != 'OK':
             print('Error searching Inbox.')
             raise
@@ -141,7 +112,7 @@ class Email_in:
         # Iterating over all emails
         for msgId in data[0].split():
             NewMsgIDs.add(msgId)
-            typ, messageParts = imapSession.fetch(msgId, '(RFC822)')
+            typ, messageParts = self.imap.fetch(msgId, '(RFC822)')
             if typ != 'OK':
                 print('Error fetching mail.')
                 raise
@@ -152,6 +123,29 @@ class Email_in:
                 with open(resumeFile, "a") as resume:
                     resume.write('{id},'.format(id=msgId))
 
-        imapSession.close()
-        imapSession.logout()
+        self.imap.close()
+        self.imap.logout()
 
+
+
+
+        # mail.list()
+
+        # # Out: list of "folders" aka labels in gmail.
+        # mail.select("inbox") # connect to inbox.
+
+        # # result, data = mail.search(None, "ALL")
+        # result, data = mail.uid('search', None, "ALL") # search and return uids instead
+         
+        # ids = data[0] # data is a list.
+        # id_list = ids.split() # ids is a space separated string
+        # #latest_email_id = id_list[-1] # get the latest
+        # latest_email_uid = data[0].split()[-1]
+         
+        # #result, data = mail.fetch(latest_email_id, "(RFC822)") # fetch the email body (RFC822) for the given ID
+        # result, data = mail.uid('fetch', latest_email_uid, '(RFC822)')
+
+        # raw_email = data[0][1] # here's the body, which is raw text of the whole email
+        # # including headers and alternate payloads
+
+        # print ("EMAIL: %s", raw_email)

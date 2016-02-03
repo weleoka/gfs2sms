@@ -16,6 +16,7 @@ import logging.config
 import gribapi
 import imaplib
 import gfs2sms_config as configFile
+import gfs2sms_utils.logging_tools
 from gfs2sms_utils import wind_tools as w_t
 from gfs2sms_utils.email import Email_in
 #from gfs2sms_utils.logging_tools import StructuredMessage
@@ -24,29 +25,14 @@ from gfs2sms_utils.email import Email_in
 # for line in fileinput.input(): 
 #    INPUT = line
 
+# Set logging according to configFile.basic['logging_level'].
+gfs2sms_utils.logging_tools.initialiseLogging()
 
-
-# Set basic logging according to basicLog.
-logargs = configFile.basicLog
-logargs['level'] = getattr(logging, logargs['level'].upper(), None)
-if isinstance(logargs['level'], int):
-    logging.basicConfig(
-    level=logargs['level'],
-    file=logargs['file'],
-    format=logargs['format'],
-    dateformat=logargs['dateformat'])
-else:
-    raise ValueError('Invalid basicLog level: %s' % logargs['level'])
-from pprint import pprint
-pprint(logargs)
-
-# # Set dictonary configured logging (advanced) according to configFile.dictLog
-# logargs = configFile.dictLog
-logging.config.dictConfig(logargs)
 
 if __name__ == "__main__":
 
     logging.info ("Started gfs2sms.")
+    # Create email_in instance
     email_in = Email_in(configFile)
 
     res = email_in.connectIMAP()
@@ -60,14 +46,10 @@ if __name__ == "__main__":
         logging.info ("Failed to establish IMAP connection to %s" % email_in.server)
 
     sys.exit()
-    #sys.exit(main())
-
 
     # More configuration.
 
     #INPUT='../data/tg02.grb'# This will come dynamically from classes in email module
-
-
 
     # def example():
     #     grib_processor = "vendor/wgrib2";
