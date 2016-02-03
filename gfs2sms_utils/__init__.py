@@ -1,1 +1,1 @@
-__all__ = ['wind_tools', 'email', 'gfs2sms_config']
+__all__ = ['wind_tools', 'email', 'gfs2sms_config', 'logging_tools']

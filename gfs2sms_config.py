@@ -1,5 +1,13 @@
 ## Configuration file for gfs2sms
 #
+# basic settings define general configuration and info.
+#	- name: program name.
+#	- version: program version.
+#	- author: developer name.
+#	- contributors: various people who have contributed to development.
+#	- author_email: developer email_in
+#	- bug_reports: bugg repport submissions.
+#
 # email_in settings define server and account details as well as connection properties.
 #	- server: the URL of the IMAP server.
 #	- port: the port used for establishing IMAP connection. SSL default is 993. Can be set to None.
@@ -14,6 +22,14 @@
 #	- format: the formatting of an entry.
 #	- dateformat: the timestamp of a log entry.
 #
+basic = {
+'name': 'gfs2sms',
+'version': '0.0.1',
+'author': 'weleoka',
+'contributors': '',
+'author_email': 'none@none.now',
+'bug_reports': ''
+}
 
 email_in = {
 'server': 'imap.gmail.com', 
@@ -24,9 +40,81 @@ email_in = {
 'ssl': True
 }
 
-log = {
+from gfs2sms_utils import logging_tools
+statistics = {
+'data_categories': ['mail', 'binary', 'headers', 'request'],
+'volume_data_in': 'make function read from log file',
+'volume_data_out': 'make function read from log file'
+}
+
+basicLog = {
+'version': 1,
 'level': 'debug',
-'file': '/dev/stdout',	#set to /dev/stdout to print to 
+'file': '/dev/stdout',	#set to /dev/stdout to print to cosole or pipe.
 'format': '%(asctime)s <%(name)s> %(levelname)s %(message)s',
 'dateformat': '%m/%d/%Y %I:%M:%S %p'
+}
+
+dictLog = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+	'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+        'default': {
+            'format': '%(asctime)s <%(name)s> %(levelname)s %(message)s'
+        }
+    },
+    'filters': {
+        'myfilter': {
+            '()': logging_tools.MyFilter,
+            'param': 'noshow'
+        }
+    },
+    'handlers': {
+        'data_in':{
+            # The values below are popped from this dictionary and
+            # used to create the handler, set the handler's level and
+            # its formatter.
+            '()': logging_tools.owned_file_handler,
+            'level':'DEBUG',
+            'formatter': 'default',
+            # The values below are passed to the handler creator callable
+            # as keyword arguments.
+            'owner': ['pulse', 'pulse'],
+            'filename': 'chowntest.log',
+            'mode': 'w',
+            'encoding': 'utf-8'
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'filters': ['myfilter']
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'gfs2sms_utils.logging_tools.AdminEmailHandler',
+            'filters': ['special']
+        },
+    },
+    'loggers': {
+        'root': {
+            'handlers':['file'],
+            'propagate': False,
+            'level':'INFO'
+        },
+        'default': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False
+        },
+        'myproject.custom': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'INFO',
+            'filters': ['special']
+        }
+    }
 }

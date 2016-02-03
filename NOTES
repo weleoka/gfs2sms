@@ -4,7 +4,14 @@ add assertions to class constructor.
 assert (Temperature >= 0),"Colder than absolute zero!"
 If the expression is false, Python raises an AssertionError exception.
 If the assertion fails, Python uses ArgumentExpression as the argument for the AssertionError. AssertionError exceptions can be caught and handled like any other exception using the try-except statement,
+Assertions will be optimised out by interpreter if so desired.
 
+Implement statistics functions to write and read from statistics log.
+
+if x is a value set via a user interface or from an external source, an exception is best.
+If x is only set by your own code in the same program, go with an assertion.
+
+Enable oAuth2 for imaplib connection.
 
 Read in module email.py what to do for googles API.
 
