@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 import json
 import logging
-import gfs2sms_config as configFile
+import config as configFile
 
 
 

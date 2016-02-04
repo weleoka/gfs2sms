@@ -1,13 +1,25 @@
 #!/usr/bin/env python
+# Copyright (c) Kai Weeks.
+# See LICENSE for details.
 """
-Module to fish data out of GFS GRIB2 files and fit it into the gfs2sms protocol.
+Main app to connect an email snd/rcv functionality and fish data out of attatchments of GFS GRIB2 files.
+The data will then be formatted to fit it into the gfs2sms protocol. 
+It also interacts with web API services to forward the data to various devices.
 
 Please report any issues to weleoka at github.
 """
 
+import sys, os
+
+# This makes sure that developers don't have to set up their environment
+# specially in order to run gfs2sms.
+# It is only a developer convenience.  By the time gfs2sms is actually installed somewhere,
+# the environment should already be set up properly without the help of this tool.
+sys.path.append(os.path.abspath('vendor'))
+print (sys.path)
+
+
 import traceback
-import sys
-import os
 import fileinput # https://docs.python.org/2/library/fileinput.html
 import subprocess
 import logging
@@ -15,22 +27,35 @@ import logging.config
 
 import gribapi
 import imaplib
-import gfs2sms_config as configFile
-import gfs2sms_utils.logging_tools
-from gfs2sms_utils import wind_tools as w_t
-from gfs2sms_utils.email import Email_in
-#from gfs2sms_utils.logging_tools import StructuredMessage
+
+import gfs2sms.config as configFile
+import gfs2sms.logging_tools
+from gfs2sms import wind_tools as w_t
+from gfs2sms.email import Email_in
+
+#from gfs2sms.logging_tools import StructuredMessage
 
 # Read from commandline file param or stdin.
 # for line in fileinput.input(): 
 #    INPUT = line
 
 # Set logging according to configFile.basic['logging_level'].
-gfs2sms_utils.logging_tools.initialiseLogging()
+gfs2sms.logging_tools.initialiseLogging()
 
 
-if __name__ == "__main__":
+""" Gfs2sms startpoint function
 
+The function from which all else takes place.
+
+parameters:
+    void
+
+returns:
+    boolean:
+
+
+"""
+def startpoint ():
     logging.info ("Started gfs2sms.")
     # Create email_in instance
     email_in = Email_in(configFile)
@@ -45,7 +70,14 @@ if __name__ == "__main__":
     else:
         logging.info ("Failed to establish IMAP connection to %s" % email_in.server)
 
-    sys.exit()
+    return True
+
+
+
+if __name__ == "__main__":
+    sys.exit(startpoint())
+
+
 
     # More configuration.
 

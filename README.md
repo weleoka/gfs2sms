@@ -5,7 +5,7 @@ The World Meteorological Organization (WMO) Commission for Basic Systems (CBS) m
 ### gfs2sms versions
 (v0.0.1) Current development version.
 
-Version specified in README, CHANGELOG, commit tag.
+Version specified in README, CHANGELOG, commit tag and gfs2sms_config.py
 
 
 

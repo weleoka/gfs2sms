@@ -6,21 +6,24 @@ If the expression is false, Python raises an AssertionError exception.
 If the assertion fails, Python uses ArgumentExpression as the argument for the AssertionError. AssertionError exceptions can be caught and handled like any other exception using the try-except statement,
 Assertions will be optimised out by interpreter if so desired.
 
-Implement statistics module for tracking requests and bandwidth usage.
-
 if x is a value set via a user interface or from an external source, an exception is best.
 If x is only set by your own code in the same program, go with an assertion.
 
-Enable oAuth2 for imaplib connection. See email.py for info.
+* Implement the redis database for user accounts.
+- Link from php for user creation.
+- Link from gfs2sms to handle email API requests.
 
-Read in module email.py what to do for googles API.
+* Implement statistics module for tracking requests and bandwidth usage.
 
-Extract data points u & v values from saildocs grib.
+* Enable oAuth2 for imaplib connection. See email.py for info.
+- See module email.py what to do for googles API.
+
+* Extract data points u & v values from saildocs grib.
 - using wgrib
 
-Look at explorerSE API for auto-messaging with SMS.
+* Look at explorerSE API for auto-messaging with SMS.
 
-
+===
 Questions:
 How to change dictionary = {'a': 'free', 'b': 'me', 'c': 'now'} into 
 function(a=free, b=me, c=now)
@@ -180,7 +183,7 @@ function build_url(region,data,dataset)
    window.location.href = url;
 }
 
-```
+´´´
 
 
 #### MISCELLANEOUS notes

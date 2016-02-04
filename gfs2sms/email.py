@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
+""" IMAP connection class.
+
+Contains:
+Class email_in representing a connection to a remote server using the IMAP protocol.
+"""
 import imaplib
 import socket
 import logging
-
-#http://www.programcreek.com/python/example/2875/imaplib.IMAP4_SSL
 
 # Not a secure login google complaining:
 # If you want to avoid this error without compromising your account's security, use OAuth to authenticate.
@@ -23,10 +26,33 @@ import logging
 
 
 class Email_in:
+    """ IMAP connection class.
+
+    Class representing a connection to a remote server using the IMAP protocol.
+    """
 
 
-# Constructor
     def __init__ (self, conf):
+        """ Constructor for IMAP connection class .
+
+        Define the object attributes according to dictionary passed in.
+
+        parameters:
+            self
+            conf: A dictionary containing configuration parameters.
+                email_in = {
+                'server': 'imap.gmail.com', 
+                'port': 993,
+                'timeout': 5,
+                'email': '@gmail.com',
+                'password': '',
+                'ssl': True
+            }
+
+
+        return:
+            void
+        """
         name = '.'.join([__name__, self.__class__.__name__])
         # Make a logger for this class.
         self.logger = logging.getLogger(name)
@@ -42,9 +68,21 @@ class Email_in:
         socket.setdefaulttimeout(self.timeout)
 
 
-# Method which runs through IMAP connection and authentification process
-    def connectIMAP (self):
 
+    def connectIMAP (self):
+        """ Initiate IMAP connection
+
+        Method which runs through IMAP connection and authentification process
+
+        Further examples:
+        http://www.programcreek.com/python/example/2875/imaplib.IMAP4_SSL
+
+        parameters:
+            self: class instance.
+
+        return:
+            boolean: success 0, fail 1.
+        """
         if self.args['ssl']:
             self.logger.info ("Connecting with SSL to %s ..." % (self.server))
             self.imapType = imaplib.IMAP4_SSL
@@ -92,15 +130,35 @@ class Email_in:
             return True
 
 
-# Method to close the IMAP connection.
+
     def closeIMAP (self):
+        """ Close IMAP connection
+
+        Method to close the IMAP connection.
+
+        parameters:
+            self: object. Class instance
+
+        return:
+            void
+        """
         self.imap.logout()
         self.logger.info ("Closed connection to %s ..." % (self.server))
 
 
 # Method to download mail with attatchments
     def GetMailWithAttachments(resumeFile):
+        """ Retrieve email using IMAP.
 
+        Download an eMail with attatchments.
+
+        parameters:
+            self: object. Class instance.
+            resumeFile: 
+
+        return:
+            void
+        """
         self.imap = self.imap
         self.imap.select('[Gmail]/All Mail')
         typ, data = self.imap.search(None, '(X-GM-RAW "has:attachment")')
@@ -122,9 +180,6 @@ class Email_in:
                 ProcessedMsgIDs.add(msgId)
                 with open(resumeFile, "a") as resume:
                     resume.write('{id},'.format(id=msgId))
-
-        self.imap.close()
-        self.imap.logout()
 
 
 
