@@ -62,6 +62,9 @@ https://www.runscope.com/
 OAuth, Google API, GMail and Google App Engine:
 https://github.com/charlierguo/gmail
 https://developers.google.com/identity/protocols/OAuth2
+https://cloud.google.com/appengine/docs/python/mail/receivingmail # inbound email with appengine
+www.socketlabs.com
+www.elasticemail.com
 
 
 #### GRIB and GRIB software notes
