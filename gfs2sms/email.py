@@ -41,29 +41,32 @@ class Email_in:
             self
             conf: A dictionary containing configuration parameters.
                 email_in = {
-                'server': 'imap.gmail.com', 
-                'port': 993,
-                'timeout': 5,
-                'email': '@gmail.com',
-                'password': '',
-                'ssl': True
-            }
+                    'server': 'imap.gmail.com', 
+                    'port': 993,
+                    'timeout': 5,
+                    'email': '@gmail.com',
+                    'password': '',
+                    'ssl': True
+                }
 
 
         return:
             void
         """
         name = '.'.join([__name__, self.__class__.__name__])
+ 
         # Make a logger for this class.
         self.logger = logging.getLogger(name)
-                
-        self.args = conf.email_in
+        self.verbose = conf.basic['verbose']
+        self.strict = conf.basic['strict']
 
+        self.args = conf.email_in
         self.server = self.args['server']
         self.port = self.args['port']
         self.timeout = self.args['timeout']  # This attribute may be superflous.
         self.email = self.args['email']
         self.password = self.args['password']
+        self.ssl = self.args['ssl']
 
         socket.setdefaulttimeout(self.timeout)
 
@@ -83,7 +86,7 @@ class Email_in:
         return:
             boolean: success 0, fail 1.
         """
-        if self.args['ssl']:
+        if self.ssl:
             self.logger.info ("Connecting with SSL to %s ..." % (self.server))
             self.imapType = imaplib.IMAP4_SSL
 
@@ -105,20 +108,28 @@ class Email_in:
 
         except imaplib.IMAP4.error, Argument:
             self.logger.exception("imaplib.IMAP4: %s " % (Argument))
-            # raise Exception("imaplib.IMAP4 error %s")
-            
+            if self.verbose:
+                traceback.print_exc(file=sys.stderr)
+            if self.strict:
+                raise Exception("imaplib.IMAP4 error %s")
             return False
 
         except socket.error as serr:
 
             if serr.errno == errno.ECONNREFUSED:
                 self.logger.exception("Incorrect username/password for %s" % self.email)
-                # raise Exception("Incorrect username/password for %s" % self.email)
+                if self.verbose:
+                    traceback.print_exc(file=sys.stderr)
+                if self.strict:
+                    raise Exception("Incorrect username/password for %s" % self.email)
                 return False
 
             if serr.errno == errno.ECONNRESET:
                 self.logger.exception("Connection reset by server")
-                # raise Exception("Connection reset by server")
+                if self.verbose:
+                    traceback.print_exc(file=sys.stderr)
+                if self.strict:
+                    raise Exception("Connection reset by server")
                 return False
 
             # Not the error we are looking for, re-raise.
@@ -126,7 +137,7 @@ class Email_in:
             raise serr
 
         else:
-            # IF no exceptions were thrown alls probably O.K. return True.
+            # If no exceptions were thrown all is probably O.K. return True.
             return True
 
 

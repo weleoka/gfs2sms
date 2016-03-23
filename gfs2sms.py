@@ -2,7 +2,7 @@
 # Copyright (c) Kai Weeks.
 # See LICENSE for details.
 """
-Main app to connect an email snd/rcv functionality and fish data out of attatchments of GFS GRIB2 files.
+Main app to connect an email snd/rcv functionality and retrieve data out of attatchments of GFS GRIB2 files.
 The data will then be formatted to fit it into the gfs2sms protocol. 
 It also interacts with web API services to forward the data to various devices.
 

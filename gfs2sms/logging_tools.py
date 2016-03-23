@@ -6,7 +6,7 @@ import config as configFile
 
 
 
-# This next bit is to ensure the script runs unchanged on 2.x and 3.x
+# This bit is to ensure the script runs unchanged on 2.x and 3.x
 try:
     unicode
 

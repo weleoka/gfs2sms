@@ -9,6 +9,8 @@ basic settings define general configuration and info.
 	- bug_reports: bugg repport submissions.
 	- logging_level: basic/advanced. This effects the logging module and sets handlers, filters and loggers.
 		Recommended level is basic for the time being.
+    - verbose: runs gfs2sms in verbose mode. Outputs full exception tracebacks etc.
+    - strict: re-throws caught exceptions to halt execution.
 
 email_in settings define server and account details as well as connection properties.
 	- server: the URL of the IMAP server.
@@ -17,6 +19,12 @@ email_in settings define server and account details as well as connection proper
 	- email: the user email.
 	- password: user password (note the dangers of having this in plaintext)
 	- ssl: set to true or false for SSL vs non-SSL connection.
+
+statistics settings log program throughput.
+    - file: path to statistcs file/database
+    - data_categories: ['mail', 'binary', 'headers', 'request']
+    - volume_data_in: function access read statistics
+    - volume_data_out: function access read statistics
 
 basicLog settings define how the programs logging function behaves.
 	- level: levels are critical, error, warning, info, debug and none.
@@ -35,7 +43,9 @@ basic = {
 'contributors': '',
 'author_email': 'none@none.now',
 'bug_reports': 'none@none.now',
-'logging_level': 'basic' # Set to basic (or advanced - not operational)
+'logging_level': 'basic', # Set to basic (or advanced which is not operational)
+'verbose': True,
+'strict': True
 }
 
 email_in = {
@@ -49,9 +59,10 @@ email_in = {
 
 from gfs2sms import logging_tools
 statistics = {
+'file': 'path to statistcs file/database',
 'data_categories': ['mail', 'binary', 'headers', 'request'],
-'volume_data_in': 'make function read from log file',
-'volume_data_out': 'make function read from log file'
+'volume_data_in': 'make function read/write from log file',
+'volume_data_out': 'make function read/write from log file'
 }
 
 basicLog = {
