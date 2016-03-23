@@ -1,6 +1,6 @@
 """ Configuration file for gfs2sms and gfs2sms utilities package.
 
-basic settings define general configuration and info.
+basic settings define general configuration and info. Use verbose or strict but not both.
 	- name: program name.
 	- version: program version.
 	- author: developer name.
@@ -44,8 +44,8 @@ basic = {
 'author_email': 'none@none.now',
 'bug_reports': 'none@none.now',
 'logging_level': 'basic', # Set to basic (or advanced which is not operational)
-'verbose': True,
-'strict': True
+'verbose': False,
+'strict': False
 }
 
 email_in = {
@@ -68,7 +68,7 @@ statistics = {
 basicLog = {
 'level': 'debug',
 'file': '/dev/stdout',	#set to /dev/stdout to print to cosole or pipe.
-'format': '%(asctime)s <%(name)s> %(levelname)s %(message)s',
+'format': '%(asctime)s %(name)s <%(levelname)s> %(message)s',
 'dateformat': '%m/%d/%Y %I:%M:%S %p'
 }
 

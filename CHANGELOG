@@ -4,6 +4,13 @@ Changelog
 Changelog gfs2sms
 
 
+Version 0.0.2
+-------------
+*Release 2016-03-xx*
+- Accepts commandline parameters for help, email address and password.
+
+
+
 Version 0.0.1
 -------------
 *Release 2016-01-26*

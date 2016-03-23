@@ -33,13 +33,17 @@ Clients who stand to benefit from these services are those which are in ultra-lo
 
 
 
-### Usage
+### Usage documentation
 
+
+### Developer info
+The execution when gfs2sms.py is run is to call readParameters() which parses commandline parameters, if present. After that it calls startpoint().
+About logging:
+The logger module is called directly from gfs2sms modules and classes but also from __main__. 
 
 
 ### Current Features:
 General functinality:
-
 Specs and options:
 
 
@@ -49,14 +53,8 @@ Specs and options:
 Please report an issue if one is found.
 
 Functionality:
-
-
 Specs and options:
-
-
 Security:
-
-
 Code, style and performance:
 
 

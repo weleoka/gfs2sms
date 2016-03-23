@@ -4,19 +4,19 @@
 Contains:
 Class email_in representing a connection to a remote server using the IMAP protocol.
 """
+import sys, traceback
 import imaplib
 import socket
+from socket import error as socket_error
+
 import logging
 
 # Not a secure login google complaining:
 # If you want to avoid this error without compromising your account's security, use OAuth to authenticate.
-#https://developers.google.com/gmail/xoauth2_protoco
+#https://developers.google.com/gmail/xoauth2_protocol
 #Python sample code that shows the use of XOAUTH2 with imaplib.
 #https://code.google.com/p/google-mail-oauth2-tools/wiki/OAuth2DotPyRunThrough
-#You should consider enabling  two-step verification on your account to make it more secure.
-#https://www.google.com/landing/2step/
-#If you do, you can use an App Password to connect to IMAP.
-#https://support.google.com/accounts/answer/185833
+
 # The gmail IMAP API does not allow polling more than 1 time every 10 minutes. But maybe it can support IDLE.
 # IMAP IDLE - like a push service.
 # http://www.isode.com/whitepapers/imap-idle.html
@@ -81,7 +81,7 @@ class Email_in:
         http://www.programcreek.com/python/example/2875/imaplib.IMAP4_SSL
 
         parameters:
-            self: class instance.
+            self: object. Class instance.
 
         return:
             boolean: success 0, fail 1.
@@ -95,7 +95,10 @@ class Email_in:
             self.imapType = imaplib.IMAP4
 
         # Call imaplib.IMAP4 or IMAP4_SSL methods.
-        self.imap = self.imapType(self.server, self.port)
+        try:
+            self.imap = self.imapType(self.server, self.port)
+        except:
+            self.logger.exception("Unhandled imaplib error: ")
 
         try:
             typ, accountDetails = self.imap.login(self.email, self.password)
@@ -114,7 +117,7 @@ class Email_in:
                 raise Exception("imaplib.IMAP4 error %s")
             return False
 
-        except socket.error as serr:
+        except socket_error as serr:
 
             if serr.errno == errno.ECONNREFUSED:
                 self.logger.exception("Incorrect username/password for %s" % self.email)
@@ -131,12 +134,20 @@ class Email_in:
                 if self.strict:
                     raise Exception("Connection reset by server")
                 return False
-
+        
             # Not the error we are looking for, re-raise.
-            self.logger.exception("Unhandled error: ")
-            raise serr
+            else:
+                self.logger.exception("Unhandled socket error: ")
+                raise serr
 
         else:
+            # Not handled:
+            # typ, accountDetails = self.imap.login(self.email, self.password)
+            # File "/usr/lib/python2.7/imaplib.py", line 520, in login
+            # raise self.error(dat[-1])
+            # error: [ALERT] Invalid credentials (Failure)
+
+            self.logger.info ("Established IMAP connection to %s" % self.server)
             # If no exceptions were thrown all is probably O.K. return True.
             return True
 
@@ -154,7 +165,7 @@ class Email_in:
             void
         """
         self.imap.logout()
-        self.logger.info ("Closed connection to %s ..." % (self.server))
+        self.logger.info ("Closed IMAP connection to %s ..." % (self.server))
 
 
 # Method to download mail with attatchments

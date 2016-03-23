@@ -1,3 +1,12 @@
+""" gfs2sms logging and statistics module.
+
+Part of the package of gfs2sms tools.
+
+Contains:
+
+Depends:
+
+"""
 from __future__ import unicode_literals
 
 import json
@@ -6,15 +15,44 @@ import config as configFile
 
 
 
-# This bit is to ensure the script runs unchanged on 2.x and 3.x
-try:
-    unicode
+def initialiseLogging ():
+    """ Logging initialisation function.
 
-except NameError:
-    unicode = str
+    Set up logging according to config file parameters.
+    """
+
+    if configFile.basic['logging_level'] == 'basic':
+        logargs = configFile.basicLog
+        logargs['level'] = getattr(logging, logargs['level'].upper(), None)
+        
+        if isinstance(logargs['level'], int):
+            logging.basicConfig(
+            level=logargs['level'],
+            file=logargs['file'],
+            format=logargs['format'],
+            dateformat=logargs['dateformat'])
+        
+        else:
+        
+            raise ValueError('Invalid basicLog level: %s' % logargs['level'])
+
+    elif configFile.basic['logging_level'] == 'advanced':
+        # # Set dictonary configured logging (advanced) according to configFile.advLog
+        # logargs = configFile.advLog
+        # logging.config.dictConfig(logargs)
+        raise ValueError('Invalid logging_level in configFile: %s' % (configFile.basic['logging_level']))
+
+    return True
+
+
 
 class Encoder(json.JSONEncoder):
+    # This bit is to ensure the script runs unchanged on 2.x and 3.x
+    try:
+        unicode
 
+    except NameError:
+        unicode = str
 
     def default(self, o):
 
@@ -70,32 +108,6 @@ class OneLineExceptionFormatter(logging.Formatter):
 
         return s
 
-
-
-def initialiseLogging ():
-
-    if configFile.basic['logging_level'] == 'basic':
-        logargs = configFile.basicLog
-        logargs['level'] = getattr(logging, logargs['level'].upper(), None)
-        
-        if isinstance(logargs['level'], int):
-            logging.basicConfig(
-            level=logargs['level'],
-            file=logargs['file'],
-            format=logargs['format'],
-            dateformat=logargs['dateformat'])
-        
-        else:
-        
-            raise ValueError('Invalid basicLog level: %s' % logargs['level'])
-
-    elif configFile.basic['logging_level'] == 'advanced':
-        # # Set dictonary configured logging (advanced) according to configFile.advLog
-        # logargs = configFile.advLog
-        # logging.config.dictConfig(logargs)
-        raise ValueError('Invalid logging_level in configFile: %s' % (configFile.basic['logging_level']))
-
-    return True
 
 
 # Custom logging handlers
