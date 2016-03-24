@@ -26,7 +26,7 @@ import logging.config
 from gfs2sms import config as configFile
 from gfs2sms import logging_tools
 from gfs2sms import utils
-from gfs2sms import wind_tools as w_t
+# from gfs2sms import wind_tools as w_t
 from gfs2sms import email
 
 
@@ -42,18 +42,16 @@ def startpoint ():
         boolean: success 0, fail 1.
     """
 
-    # Create IMAP instance
+    # Create IMAP instance.
     IMAP = email.Email_in(configFile)
 
-    res = IMAP.connectIMAP()
+    # Call connect method.
+    IMAP.connectIMAP()
 
-    if res:
-        IMAP.closeIMAP()   
+    # Call close method.
+    IMAP.closeIMAP()
 
-    else:
-        logging.info ("Failed to establish IMAP connection to %s" % IMAP.server)
-        return(1)
-
+    return(0)
 
 
 if __name__ == "__main__":
