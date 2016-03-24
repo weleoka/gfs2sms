@@ -11,7 +11,7 @@ from __future__ import unicode_literals
 
 import json
 import logging
-import config as configFile
+import config as gfs2smsConfig
 
 
 
@@ -21,26 +21,24 @@ def initialiseLogging ():
     Set up logging according to config file parameters.
     """
 
-    if configFile.basic['logging_level'] == 'basic':
-        logargs = configFile.basicLog
+    if gfs2smsConfig.basic['logging_level'] == 'basic':
+        logargs = gfs2smsConfig.basicLog
         logargs['level'] = getattr(logging, logargs['level'].upper(), None)
-        
-        if isinstance(logargs['level'], int):
-            logging.basicConfig(
+        logging.basicConfig(
             level=logargs['level'],
             file=logargs['file'],
             format=logargs['format'],
             dateformat=logargs['dateformat'])
-        
-        else:
-        
-            raise ValueError('Invalid basicLog level: %s' % logargs['level'])
 
-    elif configFile.basic['logging_level'] == 'advanced':
-        # # Set dictonary configured logging (advanced) according to configFile.advLog
-        # logargs = configFile.advLog
+    elif gfs2smsConfig.basic['logging_level'] == 'advanced':
+        # # Set dictonary configured logging (advanced) according to gfs2smsConfig.advLog
+        # logargs = gfs2smsConfig.advLog
         # logging.config.dictConfig(logargs)
-        raise ValueError('Invalid logging_level in configFile: %s' % (configFile.basic['logging_level']))
+        raise ValueError('Advanced logging is still in development')
+
+    else:
+        
+        raise ValueError('Invalid logging_level in config file: %s' % (gfs2smsConfig.basic['logging_level']))
 
     return True
 
@@ -131,7 +129,7 @@ def owned_file_handler (filename, mode='a', encoding=None, owner=None):
 
 def stats_data_in_handler (volume=None, category=None):
 
-    if category in configFile.statistics['data_categories']:
+    if category in gfs2smsConfig.statistics['data_categories']:
         print ("Recording %s" % (category))
 
     pass

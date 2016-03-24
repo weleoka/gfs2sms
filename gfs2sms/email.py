@@ -86,6 +86,7 @@ class Email_in:
         return:
             boolean: success 0, fail 1.
         """
+
         if self.ssl:
             self.logger.info ("Connecting with SSL to %s ..." % (self.server))
             self.imapType = imaplib.IMAP4_SSL
@@ -103,8 +104,8 @@ class Email_in:
         try:
             typ, accountDetails = self.imap.login(self.email, self.password)
             self.state = self.imap.select()
-            print(typ)
-            print(accountDetails)
+            # print(typ)
+            # print(accountDetails)
             if typ != 'OK':
                 print('Not able to sign in!')
                 raise
@@ -168,9 +169,9 @@ class Email_in:
         self.logger.info ("Closed IMAP connection to %s ..." % (self.server))
 
 
-# Method to download mail with attatchments
+
     def GetMailWithAttachments(resumeFile):
-        """ Retrieve email using IMAP.
+        """ Method to retrieve email using IMAP.
 
         Download an eMail with attatchments.
 
@@ -181,7 +182,6 @@ class Email_in:
         return:
             void
         """
-        self.imap = self.imap
         self.imap.select('[Gmail]/All Mail')
         typ, data = self.imap.search(None, '(X-GM-RAW "has:attachment")')
         # typ, data = self.imap.search(None, 'ALL')
@@ -191,15 +191,15 @@ class Email_in:
 
         # Iterating over all emails
         for msgId in data[0].split():
-            NewMsgIDs.add(msgId)
+            self.addNewMsgID(msgId)
             typ, messageParts = self.imap.fetch(msgId, '(RFC822)')
             if typ != 'OK':
                 print('Error fetching mail.')
                 raise
             emailBody = messageParts[0][1]
-            if msgId not in ProcessedMsgIDs:
+            if msgId not in self.processedMsgIDs:
                 yield email.message_from_string(emailBody)
-                ProcessedMsgIDs.add(msgId)
+                self.addProcessedMsgID(msgId)
                 with open(resumeFile, "a") as resume:
                     resume.write('{id},'.format(id=msgId))
 

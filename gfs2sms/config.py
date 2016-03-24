@@ -43,7 +43,7 @@ basic = {
 'contributors': '',
 'author_email': 'none@none.now',
 'bug_reports': 'none@none.now',
-'logging_level': 'basic', # Set to basic (or advanced which is not operational)
+'logging_level': 'basic', # Set to basic (later will include advanced which is not operational)
 'verbose': False,
 'strict': False
 }
@@ -66,8 +66,9 @@ statistics = {
 }
 
 basicLog = {
-'level': 'debug',
-'file': '/dev/stdout',	#set to /dev/stdout to print to cosole or pipe.
+'level': 'debug', #critical, error, warning, info, debug and none.
+'file': 'log/gfs2sms.log',
+#'file': '/dev/stdout',	#set to /dev/stdout to print to cosole or pipe.
 'format': '%(asctime)s %(name)s <%(levelname)s> %(message)s',
 'dateformat': '%m/%d/%Y %I:%M:%S %p'
 }

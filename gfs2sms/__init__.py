@@ -9,4 +9,4 @@ email.py Has classes and functions for hadling an IMAP connection.
 logging_tools.py Has classes and functions for dealing with logging program execution and usage.
 """
 
-__all__ = ['wind_tools', 'email', 'logging_tools', 'config']
+__all__ = ['wind_tools', 'email', 'logging_tools', 'config', 'utils']

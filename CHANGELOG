@@ -8,7 +8,7 @@ Version 0.0.2
 -------------
 *Release 2016-03-xx*
 - Accepts commandline parameters for help, email address and password.
-
+- Includes gfs2sms dependency module of helper functions found in utils.py
 
 
 Version 0.0.1
