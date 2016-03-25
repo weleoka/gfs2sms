@@ -23,9 +23,9 @@ if(isset($_GET["LAT"]) && isset($_GET["LONG"]))
 
 $arr = [];
 $debug = "";
-$grib_processor = "../../tools/wgrib";
-$grib_file = "../../data/tg02.grb";
-$output_file = "../../data/processed/usernameLATLONG";
+$grib_processor = GFS2SMS_TOOLS . "wgrib/wgrib";
+$grib_file = GFS2SMS_GRIB_IN . "20160325_150423_.grb";
+$output_file = GFS2SMS_GRIB_OUT. "newdata.grb";
 $flags = "-s -d 1"; // -s Simple, -d Data 1.
 $flags2 = "-i -text";   // -i Read from stdin (inventory), -text Output text.
 
@@ -40,7 +40,12 @@ if(isset($_GET['getGRIB'])) {
     
     } else {
         //string exec ( string $command [, array &$output [, int &$return_var ]] )
-        $command = $grib_processor . " -s -d 1 " . $grib_file . " | " . $grib_processor . " -i -text " . $grib_file . " -o " . $output_file;
+        $command = "sudo -u deppi " 
+            . $grib_processor . " -s -d 1 " . $grib_file 
+            . " | sudo -u deppi " 
+            . $grib_processor . " -i -text " . $grib_file 
+            . " -o " . $output_file;
+        echo $command;
         exec($command, $arr, $return_var); 
     }
 }
@@ -56,12 +61,11 @@ if($return_var == 0) {
     fclose($handle);*/
 
     $myfile = fopen($output_file, "r") or die("Unable to open file!");
-    $debug = fread($myfile,filesize($output_file));
+    // $debug = fread($myfile,filesize($output_file));
     fclose($myfile);
 
 } else {
     $res = "GRIB processing failed.";
-    echo $command;
     $debug .= dump($arr);
 }
 
@@ -74,7 +78,7 @@ $roo['main'] = <<<EOD
 
     Lat: $lat<br>
     Long: $long<br>
-    User feedback:  $res<br>
+    User feedback: $res<br>
     Process return value: $return_var<br>
     Debug info: $debug<br>
 

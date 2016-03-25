@@ -8,6 +8,7 @@ import sys, traceback
 import imaplib
 import socket
 from socket import error as socket_error
+from types import * # The "types" module is explicitly "safe for import *"; everything it exports ends in "Type".
 
 import logging
 
@@ -67,7 +68,9 @@ class Email_in:
         self.email = self.args['email']
         self.password = self.args['password']
         self.ssl = self.args['ssl']
-
+        # Assertions for parameters
+        # assert type(self.server) is StringType, "server address is not a string: %r" % self.server
+        
         socket.setdefaulttimeout(self.timeout)
 
 

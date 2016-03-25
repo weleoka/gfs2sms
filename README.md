@@ -5,7 +5,7 @@ The World Meteorological Organization (WMO) Commission for Basic Systems (CBS) m
 ### gfs2sms versions
 (v0.0.1) Current development version.
 
-Version specified in README, CHANGELOG, commit tag and gfs2sms_config.py
+Version specified in README, CHANGELOG, commit tag, gfs2sms_config.py and webroot/config.php
 
 
 
@@ -34,6 +34,27 @@ Clients who stand to benefit from these services are those which are in ultra-lo
 
 
 ### Usage documentation
+
+When invoking applications using PHP's exec() it may be useful to include "2>&1" (stderr to stdout) at the end of your command so fault codes/text will be passed back to the invoking application instead of dissapearing.
+
+Web server setup:
+Because of the processing of data is done by external programs which are called by apache, the apache user permissions need to be changed.
+
+One solution is using sudo (the example program here is wgrib):
+exec('sudo -u myuser wgrib');
+You will obviously need to setup sudo to allow the user running your webserver to invoke it (apache usually has the user www-data). Edit the sudoers file with visudo. You can use something like:
+www-data ALL=(www-data) NOPASSWD: /etc/wgrib, /etc/wgrib2
+To prevent Apache from being able to run other commands and only the wgrib command.
+[More about visudo](https://www.garron.me/en/linux/visudo-command-sudoers-file-sudo-default-editor.html)
+
+Another solution, not recommended is to change /etc/apache2/envvars:
+´´´bash
+#export APACHE_RUN_USER=www-data #comment this line out.
+export APACHE_RUN_USER=admin # add this line, change "admin" to relevant user.
+#export APACHE_RUN_GROUP=www-data # do the same for the group.
+export APACHE_RUN_GROUP=admin
+´´´
+This will work but hrm,hrm. security-wise it's a big bad no no.
 
 
 ### Developer info

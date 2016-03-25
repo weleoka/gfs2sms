@@ -1,6 +1,6 @@
 To do:
 
-add assertions to class constructor.
+add assertions to class constructors.
 assert (Temperature >= 0),"Colder than absolute zero!"
 If the expression is false, Python raises an AssertionError exception.
 If the assertion fails, Python uses ArgumentExpression as the argument for the AssertionError. AssertionError exceptions can be caught and handled like any other exception using the try-except statement,
@@ -36,6 +36,28 @@ print (str)
 
 
 ### NOTES and stuff:
+
+#### APACHE2
+DocumentRoot and apache user in:
+sudo nano /etc/apache2/sites-available/000-default.conf
+sudo nano /etc/apache2/apache2.conf
+sudo nano /etc/apache2/envvars
+sudo /etc/init.d/apache2 restart
+
+<VirtualHost xxx.xxx.xxx.xxx>
+ServerAdmin abceedy@xxx.xxx.xxx.xxx
+DocumentRoot  /usr/local/apache2/htdocs/example_site2
+ServerName  www.example-site2.com
+ErrorLog  /usr/local/apache2/logs/site2_error_log 
+TransferLog /var/log/proftpd/transfer.log
+ExtendedLog /var/log/proftpd/full.log ALL
+DefaultRoot /var/www/digitalgoods
+User                    apache
+Group                   apache
+AllowOverwrite          yes
+MaxLoginAttempts        3
+RequireValidShell       no
+</VirtualHost>
 
 #### SMS GSM and Android notes
 Generally an SMS is restricted to 160 (7 bit) characters or 140 (8 bit) characters.

@@ -14,12 +14,15 @@ ini_set('output_buffering', 0);   // Do not buffer outputs, write directly
 
 
 /**
- * Define Roo paths.
+ * Define paths and Constants.
  *
  */
+define('GFS2SMS_VERSION', 'v0.0.2');
 define('ROO_INSTALL_PATH', __DIR__ . '/..');
 define('ROO_THEME_PATH', ROO_INSTALL_PATH . '/theme/render.php');
-
+define('GFS2SMS_TOOLS', ROO_INSTALL_PATH . '/../../../');
+define('GFS2SMS_GRIB_IN', ROO_INSTALL_PATH . '/../../grib_in/');
+define('GFS2SMS_GRIB_OUT', ROO_INSTALL_PATH . '/../../grib_out/');
 
 /**
  * Include bootstrapping functions.

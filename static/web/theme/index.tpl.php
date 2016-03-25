@@ -54,7 +54,7 @@ But you need to read about the IE specific classnames above... Seen used in conj
 
 <body>
 	<div id='wrapper'>
-   	<div id='header'><?=$header?><pre id='versionNum'>February 2016<br>v0.0.0</pre></div>
+   	<div id='header'><?=$header?><pre id='versionNum'>February 2016<br><?=GFS2SMS_VERSION?></pre></div>
    	<div id='headerNvp'><?=$headerNvp?></div>
 
  	<?php if(isset($menu)): ?>
