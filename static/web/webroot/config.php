@@ -108,9 +108,9 @@ $roo['menu'] = array(
 
     // This is a menu item
     'test'  => array(
-      'text'  =>'Setup',
-      'url'   =>'setup.php',
-      'title' => 'How to get started',
+      'text'  =>'Accounts',
+      'url'   =>'account.php',
+      'title' => 'User pages',
     ),
 
 
@@ -167,4 +167,6 @@ EOD;
  */
 $roo['footer'] = <<<EOD
 Copyright &copy 2016 Kai Weeks.
+
+[Free DNS](https://freedns.afraid.org/)
 EOD;

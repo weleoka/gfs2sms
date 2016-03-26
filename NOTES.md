@@ -2,9 +2,26 @@ To do:
 
 * PHP & Apache & Web server
 - visudo permissions and custom user for apache.
+- Let's Encrypt signed SSL certificate.
+(https://www.digitalocean.com/community/tutorials/how-to-create-a-ssl-certificate-on-apache-for-ubuntu-14-04)
+(https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-14-04)
+- User password hash and salt.
+(https://crackstation.net/hashing-security.htm)
+
+
+* Database Redis (https://www.quora.com/Why-use-Redis)
+- data persistance levels AOF + RDB. redis.conf
+- cron job for hourly and daily snapshots of the RDB file.
+(Different folders on server, and transfer your snapshots using SCP (part of SSH) to far servers (VPS's).
+- SSL pipe from clients to server. 
+(ngrok creates a secure public URL (https://yourapp.ngrok.io) to your local webserver on your machine.)
+Use spiped or another SSL tunnelling software in order to encrypt traffic between Redis servers and Redis clients if your environment requires encryption.
+- Configure redis init script for autostart
+http://redis.io/topics/quickstart
 
 
 * Email IMAP Python
+- Get some Continous Integration and tests.
 - Send email.
 - Recieve email with attatchment.
 - Enable OAuth2 (read in module email.py).
@@ -76,6 +93,11 @@ RequireValidShell       no
 </VirtualHost>
 
 
+#### REDIS
+Clean up:
+redis-cli flushall
+FLUSHDB - Removes data from your connection's CURRENT database.
+FLUSHALL - Removes data from ALL databases.
 
 #### SMS GSM and Android notes
 Generally an SMS is restricted to 160 (7 bit) characters or 140 (8 bit) characters.
@@ -168,6 +190,15 @@ function build_url(region,data,dataset)
 }
 
 ´´´
+
+
+#### GnuPG, signatures and encryption
+gpg --import certificate.txt
+gpg --edit-key 1DCBDC01B44427C7 lsign #Signing the key if you trust it
+gpg --list-keys
+gpg foo.zip.sig # .sig is a detatched signature file. GnuPG will assume the file to check has the same name minus the ".sig".
+
+
 
 
 #### MISCELLANEOUS notes

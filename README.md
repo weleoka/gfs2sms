@@ -18,12 +18,13 @@ GRIB API v1.14
 ### Overview
 gfs2sms has two parts. 
 
-Firstly gfs2sms is a web server and gateway between free grib providers and users of the gfs2sms service. The gfs2sms server will gather user requested data out of GFS GRIB files and fit it into the gfs2sms protocol for forwarding to clients. 
+Firstly gfs2sms is server and gateway between free grib providers and users of the gfs2sms service. The gfs2sms server will gather user requested data out of GFS GRIB files and fit it into the gfs2sms protocol for forwarding to clients. 
 
 Secondly gfs2sms is a client which can decode the gfs2sms protocol. The client is optimised for running on any device and can accept the encoded data to be cut-and-paste:ed or be forwarded from other software automatically. The client can then decode the data and display in human readable format, either text based or graphically such as in a digital image.
 
 Clients who stand to benefit from these services are those which are in ultra-low, ultra-restricted bandwidth situations. Fore example where the GSM 160 character SMS is the sole channel of communication. The gfs2sms protocol is an overlay for the GSM SMS standard to allow data transfer following extremely strict, pre-defined, formatting.
 
+There is a web server for handling user accounts and access to the gfs2sms server.
 
 
 ### Installation
@@ -31,6 +32,9 @@ Clients who stand to benefit from these services are those which are in ultra-lo
 2. Make gfs2sms.py executable
 3. Run as shell script "./gfs2sms.py" in a terminal.
 
+https://www.linode.com/docs/databases/redis/redis-on-ubuntu-12-04-precise-pangolin/
+http://redis.io/topics/security
+set "requirepass" in etc/redis/redis.conf if the db will be accessible from world.
 
 
 ### Usage documentation
@@ -53,7 +57,7 @@ www-data ALL=(www-data) NOPASSWD: /etc/wgrib, /etc/wgrib2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-Another solution, not recommended. This will work but hrm,hrm. security-wise it's a big bad no no. Anywaychange /etc/apache2/envvars:
+Another solution, not recommended. This will work but hrm,hrm. security-wise it's a big bad no no. Do it anyway? O.K. change /etc/apache2/envvars:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.bash #example-2}
 #export APACHE_RUN_USER=www-data #comment this line out.

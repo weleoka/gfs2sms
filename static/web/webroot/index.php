@@ -26,11 +26,11 @@ $roo['main'] = <<<EOD
 		<a href="#">Need help?</a><br>
 		<a href="#">Register</a>
 	</div>
-</form><!-- form -->
+</form>
 	
-	<div class="button">
-		<a href="#">Download source file</a>
-	</div><!-- button -->
+<div class="button">
+	<a href="#">Download source file</a>
+</div>
 
 <p></p>
 <p></p>
