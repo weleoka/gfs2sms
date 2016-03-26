@@ -1,6 +1,8 @@
 # My Custom
+*vendor/
 vendor/
 log/
+*.grb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

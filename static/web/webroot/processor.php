@@ -42,10 +42,10 @@ if(isset($_GET['getGRIB'])) {
         //string exec ( string $command [, array &$output [, int &$return_var ]] )
         $command = "sudo -u deppi " 
             . $grib_processor . " -s -d 1 " . $grib_file 
+            . " -o /dev/null"
             . " | sudo -u deppi " 
             . $grib_processor . " -i -text " . $grib_file 
             . " -o " . $output_file;
-        echo $command;
         exec($command, $arr, $return_var); 
     }
 }
@@ -66,6 +66,7 @@ if($return_var == 0) {
 
 } else {
     $res = "GRIB processing failed.";
+    echo $command;
     $debug .= dump($arr);
 }
 

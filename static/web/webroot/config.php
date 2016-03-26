@@ -4,6 +4,7 @@
  *
  */
 
+
 /**
  * Set the error reporting.
  *
@@ -23,6 +24,7 @@ define('ROO_THEME_PATH', ROO_INSTALL_PATH . '/theme/render.php');
 define('GFS2SMS_TOOLS', ROO_INSTALL_PATH . '/../../../');
 define('GFS2SMS_GRIB_IN', ROO_INSTALL_PATH . '/../../grib_in/');
 define('GFS2SMS_GRIB_OUT', ROO_INSTALL_PATH . '/../../grib_out/');
+
 
 /**
  * Include bootstrapping functions.

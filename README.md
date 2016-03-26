@@ -40,25 +40,35 @@ When invoking applications using PHP's exec() it may be useful to include "2>&1"
 Web server setup:
 Because of the processing of data is done by external programs which are called by apache, the apache user permissions need to be changed.
 
-One solution is using sudo (the example program here is wgrib):
+One solution is using sudo
+(the example program here is to run wgrib from PHP):
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~ .bash
 exec('sudo -u myuser wgrib');
-You will obviously need to setup sudo to allow the user running your webserver to invoke it (apache usually has the user www-data). Edit the sudoers file with visudo. You can use something like:
-www-data ALL=(www-data) NOPASSWD: /etc/wgrib, /etc/wgrib2
-To prevent Apache from being able to run other commands and only the wgrib command.
-[More about visudo](https://www.garron.me/en/linux/visudo-command-sudoers-file-sudo-default-editor.html)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Another solution, not recommended is to change /etc/apache2/envvars:
-´´´bash
+You will obviously need to setup sudo to allow the user running your webserver to invoke it (apache usually has the user www-data). Edit the sudoers file with visudo. You can use something like to prevent Apache from being able to run other commands and only the wgrib command. [More about visudo](https://www.garron.me/en/linux/visudo-command-sudoers-file-sudo-default-editor.html):
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.bash #example-1}
+www-data ALL=(www-data) NOPASSWD: /etc/wgrib, /etc/wgrib2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Another solution, not recommended. This will work but hrm,hrm. security-wise it's a big bad no no. Anywaychange /etc/apache2/envvars:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.bash #example-2}
 #export APACHE_RUN_USER=www-data #comment this line out.
 export APACHE_RUN_USER=admin # add this line, change "admin" to relevant user.
 #export APACHE_RUN_GROUP=www-data # do the same for the group.
 export APACHE_RUN_GROUP=admin
-´´´
-This will work but hrm,hrm. security-wise it's a big bad no no.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
 
 
 ### Developer info
 The execution when gfs2sms.py is run is to call readParameters() which parses commandline parameters, if present. After that it calls startpoint().
+
 About logging:
 The logger module is called directly from gfs2sms modules and classes but also from __main__. 
 
@@ -101,9 +111,11 @@ The best way to get your changes merged is as follows:
 
 ### Licence
 
-GNU GENERAL PUBLIC LICENSE
+GNU General Public License v3.0 only
 
 LICENCE for details.
+
+http://spdx.org/licenses/
 
 Copyright (c) 2016 A.K. Weeks
 

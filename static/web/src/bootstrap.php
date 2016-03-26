@@ -9,9 +9,9 @@
  *
  */
 function myExceptionHandler($exception) {
-  echo "Roo: Uncaught exception: <p>" . $exception->getMessage() . "</p><pre>" . $exception->getTraceAsString(), "</pre>";
+  echo "Roo: Uncaught exception: <p>" . $exception->getLine() . " - " . $exception->getMessage() . "</p><pre>" . $exception->getTraceAsString(), "</pre>";
 }
-set_exception_handler('myExceptionHandler');
+set_exception_handler('myExceptionHandler'); // Makes the function into a class which extends Exception.
 
 
 /**
@@ -39,7 +39,6 @@ spl_autoload_register('myAutoloader');
 if(is_file(ROO_INSTALL_PATH . '/vendor/autoload.php')) {
     include ROO_INSTALL_PATH . '/vendor/autoload.php';
 }
-
 
 
 

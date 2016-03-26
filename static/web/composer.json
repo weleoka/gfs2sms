@@ -1,20 +1,21 @@
 {
-    "name": "ardeidae_home",
+    "name": "weleoka/gfs2sms_home",
     "type": "template",
-    "description": "Webtemplate to create websites",
+    "description": "PHP website for gfs2sms",
     "keywords": ["boilerplate", "framework", "micro", "education"],
-    "homepage": "none",
-    "license": "Creative Commons",
+    "homepage": "https://www.ravensgrib.com",
+    "license": "GPL-3.0",
     "authors": [
         {
             "name": "Kai Weeks",
             "email": "me@aaaa.se",
-            "homepage": "none",
+            "homepage": "https://www.github.com/weleoka",
             "role": "Developer"
         }
     ],
     "require": {
         "php": ">=5.4",
-        "michelf/php-markdown": "1.4.1"
+        "michelf/php-markdown": "1.4.1",
+        "predis/predis": "1.0.*"
     }
 }

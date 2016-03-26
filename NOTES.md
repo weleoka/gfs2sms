@@ -1,27 +1,43 @@
 To do:
 
-add assertions to class constructors.
-assert (Temperature >= 0),"Colder than absolute zero!"
-If the expression is false, Python raises an AssertionError exception.
-If the assertion fails, Python uses ArgumentExpression as the argument for the AssertionError. AssertionError exceptions can be caught and handled like any other exception using the try-except statement,
-Assertions will be optimised out by interpreter if so desired.
+* PHP & Apache & Web server
+- visudo permissions and custom user for apache.
 
-if x is a value set via a user interface or from an external source, an exception is best.
-If x is only set by your own code in the same program, go with an assertion.
 
-* Implement the redis database for user accounts.
-- Link from php for user creation.
-- Link from gfs2sms to handle email API requests.
+* Email IMAP Python
+- Send email.
+- Recieve email with attatchment.
+- Enable OAuth2 (read in module email.py).
 
-* Implement statistics module for tracking requests and bandwidth usage.
 
-* Enable oAuth2 for imaplib connection. See email.py for info.
-- See module email.py what to do for googles API.
+* Redis database user accounts.
+- Web form for user creation.
+- Database
+  - ID
+  - Name
+  - Email
+  - Email2
+  - Password
+  - Date joined
+  - Profile
+
+
+* Redis data and file tracking.
+  - ID
+  - User
+  - Position
+  - Time
+  - Answered
+
+(* Implement statistics module for tracking requests and bandwidth usage.)
+
 
 * Extract data points u & v values from saildocs grib.
 - using wgrib
 
+
 * Look at explorerSE API for auto-messaging with SMS.
+
 
 ===
 Questions:
@@ -59,6 +75,8 @@ MaxLoginAttempts        3
 RequireValidShell       no
 </VirtualHost>
 
+
+
 #### SMS GSM and Android notes
 Generally an SMS is restricted to 160 (7 bit) characters or 140 (8 bit) characters.
 Unicode SMS support (70 characters in length).
@@ -66,7 +84,9 @@ Unicode SMS support (70 characters in length).
 http://codetheory.in/android-sms/
 https://mobiforge.com/design-development/sms-messaging-android
 
-SMS Gateways and APIs:
+
+
+#### SMS Gateways and APIs:
 https://sites.google.com/a/tellustalk.com/english/api
 http://www.bulksms.com/products/sms-api.htm
 http://www.smsglobal.com/rest-api/
@@ -75,9 +95,11 @@ https://www.cellsynt.com/sv/sms/priser    // SE
 inleed.se/sms-api/   // SE
 
 
+
 #### General web API notes
 Use runscope to test the routing API output of email provider.
 https://www.runscope.com/
+
 
 
 #### Email SMTP IMAP
@@ -87,6 +109,7 @@ https://developers.google.com/identity/protocols/OAuth2
 https://cloud.google.com/appengine/docs/python/mail/receivingmail # inbound email with appengine
 www.socketlabs.com
 www.elasticemail.com
+
 
 
 #### GRIB and GRIB software notes
@@ -120,71 +143,7 @@ Description   Filename  Cycles Available
 
 
 
-
-
-
-
-
-#### Python notes
-math.atan2(y, x)
-    Return atan(y / x), in radians. The result is between -pi and pi. The vector in the plane from the origin to point (x, y) makes this angle with the positive X axis. The point of atan2() is that the signs of both inputs are known to it, so it can compute the correct quadrant for the angle. For example, atan(1) and atan2(1, 1) are both pi/4, but atan2(-1, -1) is -3*pi/4. Usee math.degree to convert it from radians to degrees.
-
-  * Need CGI best practices and security know how.
-
-To run for example wgrib from python.
-https://docs.python.org/2/library/subprocess.html
-https://jimmyg.org/blog/2009/working-with-python-subprocess.html
-
-
-
-Logger.debug(msg, *args, **kwargs)
-
-    Logs a message with level DEBUG on this logger. The msg is the message format string, and the args are the arguments which are merged into msg using the string formatting operator. (Note that this means that you can use keywords in the format string, together with a single dictionary argument.)
-
-    There are two keyword arguments in kwargs which are inspected: exc_info which, if it does not evaluate as false, causes exception information to be added to the logging message. If an exception tuple (in the format returned by sys.exc_info()) is provided, it is used; otherwise, sys.exc_info() is called to get the exception information.
-
-    The second keyword argument is extra which can be used to pass a dictionary which is used to populate the __dict__ of the LogRecord created for the logging event with user-defined attributes. These custom attributes can then be used as you like. For example, they could be incorporated into logged messages. For example:
-
-    FORMAT = '%(asctime)-15s %(clientip)s %(user)-8s %(message)s'
-    logging.basicConfig(format=FORMAT)
-    d = {'clientip': '192.168.0.1', 'user': 'fbloggs'}
-    logger = logging.getLogger('tcpserver')
-    logger.warning('Protocol problem: %s', 'connection reset', extra=d)
-
-    would print something like
-
-    2006-02-08 22:20:02,165 192.168.0.1 fbloggs  Protocol problem: connection reset
-
-    The keys in the dictionary passed in extra should not clash with the keys used by the logging system. (See the Formatter documentation for more information on which keys are used by the logging system.)
-
-    If you choose to use these attributes in logged messages, you need to exercise some care. In the above example, for instance, the Formatter has been set up with a format string which expects ‘clientip’ and ‘user’ in the attribute dictionary of the LogRecord. If these are missing, the message will not be logged because a string formatting exception will occur. So in this case, you always need to pass the extra dictionary with these keys.
-
-    While this might be annoying, this feature is intended for use in specialized circumstances, such as multi-threaded servers where the same code executes in many contexts, and interesting conditions which arise are dependent on this context (such as remote client IP address and authenticated user name, in the above example). In such circumstances, it is likely that specialized Formatters would be used with particular Handlers.
-
-Logger.info(msg, *args, **kwargs)
-    Logs a message with level INFO on this logger. The arguments are interpreted as for debug().
-
-Logger.warning(msg, *args, **kwargs)
-    Logs a message with level WARNING on this logger. The arguments are interpreted as for debug().
-
-Logger.error(msg, *args, **kwargs)
-    Logs a message with level ERROR on this logger. The arguments are interpreted as for debug().
-
-Logger.critical(msg, *args, **kwargs)
-    Logs a message with level CRITICAL on this logger. The arguments are interpreted as for debug().
-
-Logger.log(lvl, msg, *args, **kwargs)
-    Logs a message with integer level lvl on this logger. The other arguments are interpreted as for debug().
-
-Logger.exception(msg, *args, **kwargs)
-    Logs a message with level ERROR on this logger. The arguments are interpreted as for debug(), except that any passed exc_info is not inspected. Exception info is always added to the logging message. This method should only be called from an exception handler.
-
-
-
-
-
-
-#### Free GRIB providers http://www.euronav.co.uk/Weather/gribfiles.htm
+#### Free GRIB providers - http://www.euronav.co.uk/Weather/gribfiles.htm
 GMN GRIB CoverageGlobal Marine Networks (GMN), the leader in marine weather services, now offers 7 day wind forecasts of the world as a free public service via its GRIB Mail Robot. These forecasts are generated daily at 0015, 0615, 1215, 1815 GMT. Select areas or a custom LAT/LONG area possible to request with email.
 http://www.globalmarinenet.com/free-grib-files-provided-by-global-marine-networks/
 Norwegian Weather Service GRIBS: om.yr.no/verdata/grib/
@@ -221,6 +180,8 @@ What is the difference between a vector and a scalar?
 • Scalars of the same type can be added just as real numbers, but the addition of vectors should be done using the polygon law.
 
 
+
+#### WGRIB and TOOLS
 --- Keys for GFS grib
 
 

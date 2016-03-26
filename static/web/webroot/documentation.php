@@ -2,16 +2,17 @@
 
 include(__DIR__.'/config.php');
 
-$my_text = file_get_contents('../README.md');
+//$my_text = file_get_contents('../README.md');
+$my_text = file_get_contents(ROO_INSTALL_PATH . '/../../README.md');
 
 
-use \Michelf\Markdown;
-$my_html = Markdown::defaultTransform($my_text);
+use \Michelf\MarkdownExtra;
+$my_html = MarkdownExtra::defaultTransform($my_text);
 
 $roo['title'] = "Recources";
 
 $roo['header'] .= '<span class="siteslogan">Useful links and recources</span>';
-$roo['headerNvp'] .= '<p class="sitesloganNvp">Ardeidae Docs</p>';
+$roo['headerNvp'] .= '<p class="sitesloganNvp">Ravensgrib Docs</p>';
 
 $roo['main'] = <<<EOD
 
@@ -21,6 +22,8 @@ EOD;
 
 
 $roo['footer'] .= <<<EOD
+
+<br>
 
 <nav>Validators:
   <a href='http://validator.w3.org/check/referer'>HTML5</a>
