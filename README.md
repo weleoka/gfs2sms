@@ -32,10 +32,6 @@ There is a web server for handling user accounts and access to the gfs2sms serve
 2. Make gfs2sms.py executable
 3. Run as shell script "./gfs2sms.py" in a terminal.
 
-https://www.linode.com/docs/databases/redis/redis-on-ubuntu-12-04-precise-pangolin/
-http://redis.io/topics/security
-set "requirepass" in etc/redis/redis.conf if the db will be accessible from world.
-
 
 ### Usage documentation
 
@@ -62,8 +58,8 @@ Another solution, not recommended. This will work but hrm,hrm. security-wise it'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.bash #example-2}
 #export APACHE_RUN_USER=www-data #comment this line out.
 export APACHE_RUN_USER=admin # add this line, change "admin" to relevant user.
-#export APACHE_RUN_GROUP=www-data # do the same for the group.
-export APACHE_RUN_GROUP=admin
+#export APACHE_RUN_GROUP=www-data # do the same for the group, comment this out.
+export APACHE_RUN_GROUP=admin # add this line, change "admin" to relevant user.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -75,6 +71,19 @@ The execution when gfs2sms.py is run is to call readParameters() which parses co
 
 About logging:
 The logger module is called directly from gfs2sms modules and classes but also from __main__. 
+
+The logging module is handled by the function gfs2sms.logging_tools.initialiseLogging()
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.python #logging}
+logging.debug('All systems operational')
+logging.info('Airspeed 300 knots')
+logging.warn('Low on fuel')
+logging.error('No fuel. Trying to glide.')
+logging.critical('Glide attempt failed. About to crash.')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+More on the [above example](https://pingbacks.wordpress.com/2010/12/21/python-logging-tutorial/)
+
 
 
 ### Current Features:
@@ -100,7 +109,7 @@ If you'd like to contribute to gfs2sms's development, start by forking the GitHu
 
 https://github.com/weleoka/gfs2sms.git
 
-Have a look at the known issues and missing features and take a pick or find something else that needs doing.
+Have a look at the known issues and missing features and take a pick or find something else that needs doing. Check out developer info in README.md too.
 
 The best way to get your changes merged is as follows:
 

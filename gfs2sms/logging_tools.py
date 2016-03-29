@@ -3,6 +3,9 @@
 Part of the package of gfs2sms tools.
 
 Contains:
+    initialiseLogging() function.
+
+    Custom logging handlers, filters and formatters.
 
 Depends:
 
@@ -29,6 +32,7 @@ def initialiseLogging ():
             file=logargs['file'],
             format=logargs['format'],
             dateformat=logargs['dateformat'])
+        logging.info ("Logging level is %s (grade: %s)" % (gfs2smsConfig.basic['logging_level'], logargs['level']))
 
     elif gfs2smsConfig.basic['logging_level'] == 'advanced':
         # # Set dictonary configured logging (advanced) according to gfs2smsConfig.advLog
@@ -68,7 +72,6 @@ class Encoder(json.JSONEncoder):
 
 
 # Custom formatter classes
-
 class StructuredMessage(object):
     # usage:
     # ### Using custom logging helper class to output structured log entry.
@@ -89,7 +92,6 @@ class StructuredMessage(object):
 
 
 class OneLineExceptionFormatter(logging.Formatter):
-
 
     def formatException(self, exc_info):
         """
@@ -141,7 +143,7 @@ def stats_data_out_handler (volume=None, category=None):
 
 
 
-# Custom logging filters
+# Custom logging filter classes
 class MyFilter(logging.Filter):
 
 

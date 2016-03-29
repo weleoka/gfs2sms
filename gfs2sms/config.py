@@ -26,7 +26,7 @@ statistics settings log program throughput.
     - volume_data_in: function access read statistics
     - volume_data_out: function access read statistics
 
-basicLog settings define how the programs logging function behaves.
+basicLog settings define how the program logging module behaves.
 	- level: levels are critical, error, warning, info, debug and none.
 	- file: set to /dev/stdout or to a logfile name.
 	- format: the formatting of an entry.

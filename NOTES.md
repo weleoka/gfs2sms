@@ -99,6 +99,13 @@ redis-cli flushall
 FLUSHDB - Removes data from your connection's CURRENT database.
 FLUSHALL - Removes data from ALL databases.
 
+https://www.linode.com/docs/databases/redis/redis-on-ubuntu-12-04-precise-pangolin/
+http://redis.io/topics/security
+set "requirepass" in etc/redis/redis.conf if the db will be accessible from world.
+
+
+
+
 #### SMS GSM and Android notes
 Generally an SMS is restricted to 160 (7 bit) characters or 140 (8 bit) characters.
 Unicode SMS support (70 characters in length).
@@ -192,12 +199,20 @@ function build_url(region,data,dataset)
 ´´´
 
 
+
 #### GnuPG, signatures and encryption
 gpg --import certificate.txt
 gpg --edit-key 1DCBDC01B44427C7 lsign #Signing the key if you trust it
 gpg --list-keys
 gpg foo.zip.sig # .sig is a detatched signature file. GnuPG will assume the file to check has the same name minus the ".sig".
+CSPRNG - Cryptographically Secure Pseudo-Random Number Generator 
 
+
+
+### PHP
+PECL stands for PHP Extension Community Library, it has extensions written in C, that can be loaded into PHP to provide additional functionality. You need to have administrator rights, a C compiler and associated toolchain to install those extensions.
+
+PEAR is PHP Extension and Application Repository, it has libraries and code written IN php. Those you can simply download, install and include in your code.
 
 
 
@@ -209,6 +224,7 @@ What is the difference between a vector and a scalar?
 • Vector equality occurs only when both the magnitude and the direction of two vectors of the same type are the same, but in the case of scalars, equality of magnitude is sufficient.
 
 • Scalars of the same type can be added just as real numbers, but the addition of vectors should be done using the polygon law.
+
 
 
 

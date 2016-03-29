@@ -28,29 +28,70 @@ if(isset($_POST['signup'])) {
     $key_user = "userID:" . $newUserID; // Note the semi-colon.
 
     // Hash and salt the new password.
-    $password_hash = $password;
+    // \Sodium\sodium_init(); // Not in PHP libsodium
+    // \Sodium\sodium_mlock($password); // Not in PHP libsodium
+    $hash_str = \Sodium\crypto_pwhash_scryptsalsa208sha256_str(
+        $password,
+        \Sodium\CRYPTO_PWHASH_SCRYPTSALSA208SHA256_OPSLIMIT_INTERACTIVE,
+        \Sodium\CRYPTO_PWHASH_SCRYPTSALSA208SHA256_MEMLIMIT_INTERACTIVE
+    );
+    // \Sodium\sodium_munlock($password); // Not in PHP libsodium
 
-    // Register the new username and corresponding ID in userlist.
-    $res = $redis->hmset("userlist", [
-        $username => $newUserID,
-    ]);
 
-    $res = $redis->hmset($key_user, [
-        'username' => $username,
-        'fullName' => $fullname,
-        'email' => $email,
-        'password' => $password_hash,
-        'profile' => $profile,
-    ]);
+    // Step 1: Check if username is taken
+//    Note: If the search parameter is a string and the type parameter is set to TRUE, the search is case-sensitive. in_array(search,array,type)
+    if(in_array($username, $redis->hKeys('userlist'))) {
+        echo "USERNAME EXISTS.";
 
-    // Increment the usercount.
-    $redis->incr("usercount");
+    } else {
+
+        // Step 2: Register the new username and corresponding ID in userlist.
+        $res = $redis->hmset("userlist", [
+            $username => $newUserID,
+        ]);
+
+        // Step 3: Create the new hash for the user.
+        $res = $redis->hmset($key_user, [
+            'username' => $username,
+            'fullName' => $fullname,
+            'email' => $email,
+            'password' => $hash_str,
+            'profile' => $profile,
+        ]);
+
+        // Step 4: Increment the usercount.
+        $redis->incr("usercount");
+    }
+
+
+} else if(isset($_POST['login'])) {
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $key_user = "userID:" . $redis->hget("userlist", $username);
+    $hash_str = $redis->hget($key_user, 'password');
+
+
+    if (\Sodium\crypto_pwhash_scryptsalsa208sha256_str_verify($hash_str, $password)) {
+        // recommended: wipe the plaintext password from memory
+        \Sodium\memzero($password);
+
+        $res .= "LOGGED IN.";
+        // Password was valid
+    } else {
+        // recommended: wipe the plaintext password from memory
+        \Sodium\memzero($password);
+        
+        $res .= "FAILED LOG IN.";
+        // Password was invalid.
+    }
 
 } else if (isset($_GET['viewAccounts'])) {
-    $arList = $redis->keys("*");
     echo "Stored keys in redis:: ";
-    print_r($arList);
+    Dump($redis->keys("*"));
     Dump($redis->hgetall("userlist"));
+    // Dump($redis->hgetall("userID:0"));
 }
 
 
@@ -84,6 +125,7 @@ REDIT: $res
     </div>
     <div>
         <input type="submit" value="Sign up" name="signup" /><br>
+        <input type="submit" value="Log in" name="login" /><br>
         <input type="reset" value="Reset"><br>
         <a href="account.php?viewAccounts">Need help?</a><br>
     </div>

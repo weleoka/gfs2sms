@@ -14,7 +14,7 @@ libsodium-php # A binding for PHP to use the C-library of libsodium.
 For debian based systems:
 apt-get install redis-server
 apt-get install libsodium-dev
-sudo apt-get install php-pear # For PECL.
+sudo apt-get install php-pear # For PECL (PHP Extension Community Library).
 sudo apt-get install php5-dev # Required by libsodium-php
 pecl install libsodium
 You should add "extension=libsodium.so" to apache2/php.ini under "Dynamic Extensions" header. You may want to add it to /etc/php5/cli too.
