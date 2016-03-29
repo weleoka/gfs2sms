@@ -94,6 +94,7 @@ RequireValidShell       no
 
 
 #### REDIS
+https://github.com/phpredis/phpredis
 Clean up:
 redis-cli flushall
 FLUSHDB - Removes data from your connection's CURRENT database.

@@ -14,7 +14,6 @@ include(__DIR__.'/config.php');
     // Initial database set-up
     !$redis->exists('usercount') ? $redis->set("usercount", 0) : $res .= " (usercount: " . $redis->get("usercount") . ").";
 
-    
 
 if(isset($_POST['signup'])) {
 
@@ -39,8 +38,8 @@ if(isset($_POST['signup'])) {
 
 
     // Step 1: Check if username is taken
-//    Note: If the search parameter is a string and the type parameter is set to TRUE, the search is case-sensitive. in_array(search,array,type)
-    if(in_array($username, $redis->hKeys('userlist'))) {
+    if(in_array($username, $redis->hKeys('userlist'), True)) {
+        //    Note: If the search parameter is a string and the type parameter is set to TRUE, the search is case-sensitive. in_array(search,array,type)
         echo "USERNAME EXISTS.";
 
     } else {
@@ -65,30 +64,28 @@ if(isset($_POST['signup'])) {
 
 
 } else if(isset($_POST['login'])) {
-
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $key_user = "userID:" . $redis->hget("userlist", $username);
-    $hash_str = $redis->hget($key_user, 'password');
+    if($redis->hExists("userlist", $username)) {
+        $key_user = "userID:" . $redis->hget("userlist", $username);
+    
+        $hash_str = $redis->hget($key_user, 'password');
 
+        if (\Sodium\crypto_pwhash_scryptsalsa208sha256_str_verify($hash_str, $password)) {
+            \Sodium\memzero($password);
+            $res .= "LOGGED IN.";
 
-    if (\Sodium\crypto_pwhash_scryptsalsa208sha256_str_verify($hash_str, $password)) {
-        // recommended: wipe the plaintext password from memory
-        \Sodium\memzero($password);
-
-        $res .= "LOGGED IN.";
-        // Password was valid
+        } else {
+            \Sodium\memzero($password);
+            $res .= "FAILED LOG IN.";
+        }
     } else {
-        // recommended: wipe the plaintext password from memory
-        \Sodium\memzero($password);
-        
-        $res .= "FAILED LOG IN.";
-        // Password was invalid.
+        $res .= "No user by that name."
     }
 
+
 } else if (isset($_GET['viewAccounts'])) {
-    echo "Stored keys in redis:: ";
     Dump($redis->keys("*"));
     Dump($redis->hgetall("userlist"));
     // Dump($redis->hgetall("userID:0"));
