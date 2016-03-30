@@ -40,9 +40,9 @@ Enhancements, pollyfills and addons are in the assets folder under either css or
 ### Requirements
 HTTP server with PHP. Apache recommended
 Redis database	# For user info and data storage
-libsodium # For password hashing and salting for security
+libsodium # For password hashing and salting
 libsodium-php # A binding for PHP to use the C-library of libsodium.
-
+predis bindings for redis database for PHP.
 
 
 ### Current Features:
@@ -58,8 +58,10 @@ Please report an issue if one is found.
 Functionality:
 Specs and options:
 Security:
-	User login. Delay for login attempt needs to always be the same regardless of weather username exsists in db or not.
+	* User login. Delay for login attempt needs to always be the same regardless of weather username exsists in db or not.
+	* Use form key and hidden field to prevent XSS and Cross-site request forgery on forms.
 Code, style and performance:
+	Create access by user module through composer.
 
 
 

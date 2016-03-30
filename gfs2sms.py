@@ -3,7 +3,7 @@
 # See LICENSE for details.
 """
 Main app to connect an email snd/rcv functionality and retrieve data out of attatchments of GFS GRIB2 files.
-The data will then be formatted to fit it into the gfs2sms protocol. 
+The data will then be formatted to fit it into the gfs2sms protocol.
 It also interacts with web API services to forward the data to various devices.
 
 Please report any issues to weleoka at github.
@@ -61,7 +61,7 @@ if __name__ == "__main__":
         logging_tools.initialiseLogging()
         logging.info ("Started gfs2sms.")
     except ValueError:
-        print ("Error: problem initialising logging module.")    
+        print ("Error: problem initialising logging module.")
 
     # Read parameters from command line, if present, to modify configuration.
     if len(sys.argv[1:]) > 0:

@@ -17,11 +17,11 @@ var_dump([\Sodium\version_string()]);
 // https://paragonie.com/book/pecl-libsodium/read/07-password-hashing.md
 echo "\nCurrent hash keybytes: "
 		. \Sodium\CRYPTO_GENERICHASH_KEYBYTES;
-echo "\nCurrent salt keybytes: " 
+echo "\nCurrent salt keybytes: "
 		. \Sodium\CRYPTO_PWHASH_SCRYPTSALSA208SHA256_SALTBYTES;
-echo "\nOPSLIMIT: " 
+echo "\nOPSLIMIT: "
 		. \Sodium\CRYPTO_PWHASH_SCRYPTSALSA208SHA256_OPSLIMIT_INTERACTIVE;
-echo "\nMEMLIMIT (bytes): " 
+echo "\nMEMLIMIT (bytes): "
 		. \Sodium\CRYPTO_PWHASH_SCRYPTSALSA208SHA256_MEMLIMIT_INTERACTIVE;
 
 

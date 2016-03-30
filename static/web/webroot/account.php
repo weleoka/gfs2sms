@@ -64,12 +64,11 @@ if(isset($_POST['signup'])) {
 
 
 } else if(isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = isset($_POST['username']) ? $_POST['username'] : "alarmusr";
+    $password = isset($_POST['password']) ? $_POST['password'] : "alarmpwd";
 
     if($redis->hExists("userlist", $username)) {
-        $key_user = "userID:" . $redis->hget("userlist", $username);
-    
+        $key_user = "userID:" . $redis->hget("userlist", $username); 
         $hash_str = $redis->hget($key_user, 'password');
 
         if (\Sodium\crypto_pwhash_scryptsalsa208sha256_str_verify($hash_str, $password)) {
@@ -80,8 +79,12 @@ if(isset($_POST['signup'])) {
             \Sodium\memzero($password);
             $res .= "FAILED LOG IN.";
         }
+
     } else {
-        $res .= "No user by that name."
+        // Run a fake to take time.
+        $hash_str = $redis->hget("userID:0", 'password');
+        \Sodium\crypto_pwhash_scryptsalsa208sha256_str_verify($hash_str, $password);
+        $res .= "FAILED LOG IN.";
     }
 
 
