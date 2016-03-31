@@ -126,9 +126,7 @@ The best way to get your changes merged is as follows:
 
 GNU General Public License v3.0 only
 
-LICENCE for details.
-
-http://spdx.org/licenses/
+LICENCE or [SPDX.org](http://spdx.org/licenses/) for details.
 
 Copyright (c) 2016 A.K. Weeks
 

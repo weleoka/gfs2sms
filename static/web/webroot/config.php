@@ -107,12 +107,25 @@ $roo['menu'] = array(
     ),
 
     // This is a menu item
-    'test'  => array(
-      'text'  =>'Accounts',
-      'url'   =>'account.php',
-      'title' => 'User pages',
+    'admin'  => array(
+      'text'  =>'Admin',
+      'url'   =>'admin.php',
+      'title' => 'Admin pages',
     ),
 
+    // This is a menu item
+    'signup'  => array(
+      'text'  =>'Sign up',
+      'url'   =>'signup.php',
+      'title' => 'Sign up pages',
+    ),
+
+    // This is a menu item
+    'login'  => array(
+      'text'  =>'Login',
+      'url'   =>'login.php',
+      'title' => 'Login pages',
+    ),
 
     // This is a menu item
     'about' => array(

@@ -1,5 +1,6 @@
 # My Custom
 *vendor/
+static/web/vendor
 vendor/
 log/
 *.grb
