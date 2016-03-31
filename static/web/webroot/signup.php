@@ -2,12 +2,15 @@
 
 include(__DIR__.'/config.php');
 
+$form = new \Weleoka\HTMLForm\CSignup();
+$formHTML = $form->getHTML();
+$user = new \Weleoka\Users\UserRedis();
+
 $feedback = isset($_SESSION['user-feedback']) ? $_SESSION['user-feedback'] : "nothing";
 
-$user = new Weleoka\UserRedis();
-$form = new Weleoka\CSignup();
+$information = $form->getOutput();
 
-if(isset($_POST['signup'])) {
+if(isset($_POST['submit'])) {
     $username = isset($_POST['username']) ? $_POST['username'] : "alarmNoUsrSignup";
     $password = isset($_POST['password']) ? $_POST['password'] : "alarmNoPwdSignup";
     $user->signup();
@@ -22,13 +25,25 @@ $roo['main'] = <<<EOD
 
 <div class="articleSegment">
 <h2>RavensGRIB sign up dev.</h2>
-REDIT: $res
 <br>
 UserRedis class: $feedback
+$information
 <br>
-$form
+$formHTML
 
 <br>
+</div>
+
+EOD;
+
+$roo['footer'];
+
+include(ROO_THEME_PATH);
+
+
+
+/*
+
 <form method="POST" action="signup.php">
     <h3>Sign up form</h3>
     <div>
@@ -53,10 +68,4 @@ $form
     </div>
 </form>
 
-</div>
-
-EOD;
-
-$roo['footer'];
-
-include(ROO_THEME_PATH);
+*/

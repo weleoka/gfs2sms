@@ -4,13 +4,17 @@ include(__DIR__.'/config.php');
 
 $feedback = isset($_SESSION['user-feedback']) ? $_SESSION['user-feedback'] : "nothing";
 
-$user = new Weleoka\UserRedis();
+$user = new \Weleoka\Users\UserRedis();
 
 if (isset($_POST['viewAccounts'])) {
     Dump($user->keys("*"));
     Dump($user->hgetall("userlist"));
     // Dump($redis->hgetall("userID:0"));    
 }
+
+    Dump($user->keys("*"));
+    Dump($user->hgetall("userlist"));
+    // Dump($redis->hgetall("userID:0")); 
 
 $roo['title'] = "Admin";
 $roo['header'] .= '<span class="siteslogan">Administrator Ravensgrib</span>';

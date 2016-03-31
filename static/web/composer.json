@@ -18,6 +18,6 @@
         "michelf/php-markdown": "1.4.1",
         "predis/predis": "1.0.*",
         "weleoka/user": "dev-master",
-        "mos/cform": "2.*@dev",
+        "mos/cform": "2.x-dev"
     }
 }
