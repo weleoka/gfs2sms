@@ -157,12 +157,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/weleoka/user.git",
-                "reference": "96420b06bccee56aa52aa322e50b147373a37be9"
+                "reference": "910cd3b23dd554be1bac4babdb424c0ad08767e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/weleoka/user/zipball/96420b06bccee56aa52aa322e50b147373a37be9",
-                "reference": "96420b06bccee56aa52aa322e50b147373a37be9",
+                "url": "https://api.github.com/repos/weleoka/user/zipball/910cd3b23dd554be1bac4babdb424c0ad08767e4",
+                "reference": "910cd3b23dd554be1bac4babdb424c0ad08767e4",
                 "shasum": ""
             },
             "require": {
@@ -200,7 +200,7 @@
                 "education",
                 "wrapper"
             ],
-            "time": "2016-03-31 15:56:30"
+            "time": "2016-03-31 19:42:22"
         }
     ],
     "packages-dev": [],

@@ -18,6 +18,7 @@ set_exception_handler('myExceptionHandler'); // Makes the function into a class 
  * Autoloader for classes.
  *
  */
+/*
 function myAutoloader($class) {
   $path = ROO_INSTALL_PATH . "/src/{$class}/{$class}.php";
   if(is_file($path)) {
@@ -28,7 +29,7 @@ function myAutoloader($class) {
   }
 }
 spl_autoload_register('myAutoloader');
-
+*/
 
 
 /**
