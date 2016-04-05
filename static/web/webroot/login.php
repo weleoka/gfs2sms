@@ -5,7 +5,6 @@ include(__DIR__.'/config.php');
 $form = new \Weleoka\HTMLForm\CLogin();
 $form->check();
 $formHTML = $form->getHTML();
-// $feedback = $user->getFeedback();
 
 $roo['title'] = "Login";
 $roo['header'] .= '<span class="siteslogan">Sign up for Ravensgrib</span>';

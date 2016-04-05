@@ -1,32 +1,27 @@
 <?php
-
-include(__DIR__.'/config.php');
-
 // Dump($user->keys("*"));
 // Dump($userlist);
 // Dump($user->hgetall("userID:14"));
 
+include(__DIR__.'/config.php');
 
 $feedback = isset($_SESSION['user-feedback']) ? $_SESSION['user-feedback'] : "nothing";
 
 $user = new \Weleoka\Users\UserRedis();
-$userlist = $user->hgetall("userlist");
 $HTML = "";
 
-foreach ($userlist as $name => $userID) {
-	$arr = $user->getUser($userID);
-	$view =  "<p>"
-		. "<br>Active: " 	. $arr['active']
-		. "<br>Full name :" . $arr['fullname']
-		. "<br>Username: " 	. $arr['username']
-		. "<br>email :" 	. $arr['email']
-		. "<br>profile :" 	. $arr['profile']
-		. "<br>created :" 	. $arr['created']
-		. "<br>latestIp :" 	. $arr['latestIp']
-		. "<br>firstIp :" 	. $arr['firstIp']
-		. "</p>";
-	$HTML .= $view;
+if ($user->isAdmin()) {
+    $userlist = $user->hgetall("userlist");
+
+    foreach ($userlist as $name => $userID) {
+        $HTML .= $user->getUserHTML($userID);
+    }
+
+} else {
+    header("Location: index.php");
+    // header('Refresh: 3; URL=' . __DIR__ .'/index.php');
 }
+
 
 $roo['title'] = "Admin";
 $roo['header'] .= '<span class="siteslogan">Administrator Ravensgrib</span>';
